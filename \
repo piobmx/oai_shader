@@ -1,0 +1,31 @@
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import ThreeCanvas from "./threeCanvas";
+import { Button } from "antd";
+import axios from "axios";
+import { useEffect } from "react";
+
+function App() {
+	const [count, setCount] = useState(0);
+	  const [vertex, setVertex] = useState("");
+  const [fragment, setFragment] = useState("");
+
+
+	useEffect(() => {
+		axios.get("/vert.glsl").then((res) => setVertex(res.data));
+		axios.get("/frag.glsl").then((res) => setFragment(res.data));
+	});
+
+	return (
+		<>
+			<Button type="primary">Button</Button>
+			<ThreeCanvas />
+
+			{/* <ShaderCanvas width={window.innerWidth/2} height={window.innerHeight/2}/> */}
+		</>
+	);
+}
+
+export default App;
