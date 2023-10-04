@@ -33,12 +33,16 @@ function ShaderComponent() {
       //   content = content.replace("glsl", "");
       console.log(data);
 
-        setResult(content);
-        setFragCode(content)
+      setResult(content);
+      setFragCode(content);
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+    const processResult = (result) => {
+
+    }
 
   return (
     <div
@@ -100,8 +104,7 @@ function ShaderComponent() {
           ></TextArea>
           <TextArea
             value={result}
-            onChange={(e) => {
-            }}
+            onChange={(e) => {}}
             rows={50}
             bordered
             placeholder="Results from ChatGPT"
