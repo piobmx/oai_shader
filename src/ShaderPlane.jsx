@@ -5,7 +5,7 @@ import { MyMaterial } from './MyMaterial'
 import { useEffect } from 'react'
 import CustomShaderMaterial from 'three-custom-shader-material'
 import { useSpring, animated } from '@react-spring/three'
-import { fragAtom } from './App';
+import { fragAtom ,promptAtom } from './App';
 extend({ MyMaterial })
 import { useAtom } from 'jotai';
 
@@ -29,6 +29,7 @@ export function ShaderPlane({ fs, vs, switchCanvas }) {
         console.log('Component is re-rendering due to someValue change.');
         ref.current.version = ref.current.version + 1
         ref.current.fragmentShader = fragCode
+        clock.start()
     }, [fragCode])
 
 

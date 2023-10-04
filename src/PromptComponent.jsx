@@ -1,34 +1,39 @@
-import React, { useState } from 'react';
-import { Input } from 'antd';
-import { useAtom } from 'jotai';
-import { fragAtom } from './App';
+import React, { useState } from "react";
+import { Input } from "antd";
+import { useAtom } from "jotai";
+import { promptAtom } from "./App";
 
-const { TextArea } = Input
+const { TextArea } = Input;
 
-function ShaderComponent() {
-    const [fragCode, setFragCode] = useAtom(fragAtom)
+function PromptComponent() {
+  const [prompt, setPrompt] = useAtom(promptAtom);
 
-    return (
-        <div>
-            {/* Textarea for entering the fragment shader code */}
-            <TextArea
-                value={fragCode}
-                onChange={e => {
-                    setFragCode(e.target.value)
-                }}
-                bordered
-                placeholder="Enter your fragment shader code here..."
-                style={{
-                    fontFamily: "monospace"
-                }}
-            ></TextArea>
+  return (
+    <div>
+      {/* Textarea for entering the fragment shader code */}
+      <TextArea
+        value={prompt}
+        onChange={(e) => {
+          setPrompt(e.target.value);
+        }}
+        autoSize={{ minRows: 1, maxRows: 2 }}
+        bordered
+        placeholder="Prompt..."
+        style={{
+          fontFamily: "helvetica",
+          width: "100%",
+          background: "rgba(111, 111, 111, 0.4)",
+          color: "#ffeeee",
+          fontWeight: "bold",
+        }}
+      ></TextArea>
 
-            {/* Hidden div containing the fragment shader code */}
-            <div id="fragmentShader" style={{ display: 'none' }}>
-                {fragCode}
-            </div>
-        </div>
-    );
+      {/* Hidden div containing the fragment shader code */}
+      <div id="prompt" style={{ display: "none" }}>
+        {prompt}
+      </div>
+    </div>
+  );
 }
 
-export default ShaderComponent;
+export default PromptComponent;
