@@ -1,7 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600&family=Fragment+Mono:ital@0;1&display=swap");
+
 #root {
-  width: 100%;
-  height: 100%;
-  min-height:720px;
-  margin: 0;
-  padding: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 720px;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+}
+
+.ResultArea {
+    font-family: "Fragment Mono", monospace;
+    text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
+}
+
+.InputArea {
+    font-family: "Fragment Mono", monospace;
+    text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
+}
+
+.ErrorMessageArea {
+    font-family: "Fragment Mono", monospace;
+    text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
+}
+
+.prompt-input {
+    color: white;
+    text-shadow: 1px 1px 2px #3311a1, 0 0 1em #55ff33, 0 0 0.2em white;
+}
+
+textarea::-webkit-scrollbar {
+    width: 1em;
+}
+
+textarea::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+textarea::-webkit-scrollbar-corner {
+    /* background-color: darkgrey; */
+    outline: 1px solid slategrey;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+textarea::-webkit-resizer {
+    border: 2px solid rgba(85, 192, 108, 0.5);
+    /* background: blue; */
+    /* box-shadow: 0 0 2px 5px red; */
+    /* outline: 2px dashed green; */
+
+    /*size does not work*/
+    display: block;
+    /* width: 150px !important; */
+    /* height: 150px !important; */
 }

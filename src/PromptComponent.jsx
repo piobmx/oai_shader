@@ -1,39 +1,46 @@
 import React, { useState } from "react";
 import { Input } from "antd";
 import { useAtom } from "jotai";
-import { promptAtom } from "./App";
+import { promptAtom, loadingAtom } from "./App";
 
-const { TextArea } = Input;
+function PromptComponent(props) {
+    const [prompt, setPrompt] = useAtom(promptAtom);
+    const [loading, setLoading] = useAtom(loadingAtom);
 
-function PromptComponent() {
-  const [prompt, setPrompt] = useAtom(promptAtom);
+    return (
+        <div>
+            {/* Textarea for entering the fragment shader code */}
+            <Input
+                className="prompt-input"
+                value={prompt}
+                onChange={(e) => {
+                    setPrompt(e.target.value);
+                }}
+                onPressEnter={() => {
+                    setLoading(true);
+                    props
+                        .getShader()
+                        .then((streamed) => props.validator(streamed));
+                }}
+                bordered={false}
+                placeholder="Prompt..."
+                style={promptInputStyle}
+            />
 
-  return (
-    <div>
-      {/* Textarea for entering the fragment shader code */}
-      <TextArea
-        value={prompt}
-        onChange={(e) => {
-          setPrompt(e.target.value);
-        }}
-        autoSize={{ minRows: 1, maxRows: 2 }}
-        bordered
-        placeholder="Prompt..."
-        style={{
-          fontFamily: "helvetica",
-          width: "100%",
-          background: "rgba(111, 111, 111, 0.4)",
-          color: "#ffeeee",
-          fontWeight: "bold",
-        }}
-      ></TextArea>
-
-      {/* Hidden div containing the fragment shader code */}
-      <div id="prompt" style={{ display: "none" }}>
-        {prompt}
-      </div>
-    </div>
-  );
+            <div id="prompt" style={{ display: "none" }}>
+                {prompt}
+            </div>
+        </div>
+    );
 }
+
+const promptInputStyle = {
+    backgroundColor: "rgba(100, 100, 100, 0.3)",
+    marginTop: "0.4rem",
+    fontWeight: "500",
+    fontFamily: "'Montserrat', sans-serif",
+    borderRadius: "0px",
+    boxShadow: "-1em 0 .4em rgb(0, 64, 0), -1em 0 .4em rgb(0, 0, 255)",
+};
 
 export default PromptComponent;

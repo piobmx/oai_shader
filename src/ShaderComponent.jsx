@@ -1,133 +1,180 @@
 import React, { useState } from "react";
 import { Button, Input } from "antd";
 import { useAtom } from "jotai";
-import { promptAtom, fragAtom } from "./App";
+import {
+    promptAtom,
+    fragAtom,
+    shaderErrorMsgAtom,
+    shaderHasErrorAtom,
+    loadingAtom,
+} from "./App";
+import PromptComponent from "./PromptComponent";
+import Buttons from "./Buttons";
+import {
+    textareaComponentStyle,
+    containerStyle,
+    buttonStyles,
+    PromptComponentStyle,
+} from "./styles";
 
 const { TextArea } = Input;
 const apiUrl = "http://127.0.0.1:3000/v1/api";
 
 function ShaderComponent() {
-  const [fragCode, setFragCode] = useAtom(fragAtom);
-  const [prompt, setPrompt] = useAtom(promptAtom);
-  const [result, setResult] = useState("");
-  const [inputVisible, setInputVisible] = useState(true);
+    const [fragCode, setFragCode] = useAtom(fragAtom);
+    const [prompt, setPrompt] = useAtom(promptAtom);
+    const [loading, setLoading] = useAtom(loadingAtom);
+    const [result, setResult] = useState("");
+    const [inputVisibility, setInputVisibility] = useState(true);
+    const [shaderHasError, setShaderHasError] = useAtom(shaderHasErrorAtom);
+    const [shaderErrorMsg, setShaderErrorMsg] = useAtom(shaderErrorMsgAtom);
 
-  const postPrompt = async () => {
-    try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message: prompt }),
-      });
+    const emptyResult = () => {
+        setResult("");
+    };
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+    const eventPrompt = async () => {
+        emptyResult();
+        console.log(`processing prompt: ${prompt}`);
+        try {
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                body: prompt.toLowerCase(),
+            });
 
-      const data = await response.json();
-      const content = data["ai"];
-      //   content = JSON.stringify(data["ai"], null, 2).replace(/\n/g, "");
-      //   content = content.replace("```", "");
-      //   content = content.replace("glsl", "");
-      console.log(data);
+            const reader = response.body.getReader();
+            let streamText = "";
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                setLoading(true);
+                streamText += new TextDecoder().decode(value);
+                setFragCode(streamText);
+                setResult(streamText);
+            }
+            setLoading(false);
+            return streamText;
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
 
-      setResult(content);
-      setFragCode(content);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+    const toggleInputVisibility = () => {
+        setInputVisibility((visibility) => !visibility);
+    };
 
-    const processResult = (result) => {
+    const validateResult = (streamedResult) => {
+        if (streamedResult === "") {
+            console.log("2");
+            return;
+        }
+        const prefixes = [
+            // "varying vec2 vUv;",
+            "uniform vec2 u_resolution;",
+            "uniform float u_time;",
+            "varying vec2 vUv;",
+        ];
 
-    }
+        let validated_result = streamedResult;
 
-  return (
-    <div
-      style={{
-        position: "absolute",
-        zIndex: "10",
-        width: "50%",
-        left: "4rem",
-        top: "4rem",
-        whiteSpace: "pre-line",
-        fontFamily: "monospace",
-      }}
-    >
-      {/* Textarea for entering the fragment shader code */}
-      <Button
-        onClick={() => {
-          setInputVisible(!inputVisible);
-        }}
-      >
-        Toggle Box
-      </Button>
-      <Button
-        onClick={() => {
-          console.log(prompt);
-          postPrompt();
-        }}
-      >
-        Chat...
-      </Button>
-      <Button
-        onClick={() => {
-          setResult("");
-        }}
-      >
-        Clear Results
-      </Button>
+        prefixes.forEach((prefix) => {
+            if (validated_result.indexOf(prefix) === -1) {
+                validated_result = prefix + "\n" + validated_result;
+            }
+        });
 
-      {inputVisible ? (
-        <>
-          {" "}
-          <TextArea
-            value={fragCode}
-            onChange={(e) => {
-              setFragCode(e.target.value);
-            }}
-            bordered
-            rows={40}
-            placeholder="Enter your fragment shader code here..."
-            style={{
-              zIndex: "10",
-              height: "40vh",
-              background: "rgba(111, 111, 80, 0.5)",
-              color: "rgba(255 ,250, 250, 1)",
-              fontFamily: "monospace",
-              borderRadius: "15px",
-              boxShadow: "2px 4px 3px #999",
-              fontWeight: "bold",
-            }}
-          ></TextArea>
-          <TextArea
-            value={result}
-            onChange={(e) => {}}
-            rows={50}
-            bordered
-            placeholder="Results from ChatGPT"
-            style={{
-              zIndex: "10",
-              background: "rgba(111, 111, 80, 0.5)",
-              color: "rgba(255 ,250, 250, 1)",
-              fontFamily: "monospace",
-              borderRadius: "15px",
-              boxShadow: "2px 4px 3px #999",
-              fontWeight: "bold",
-            }}
-          />
-        </>
-      ) : (
-        <></>
-      )}
-      {/* Hidden div containing the fragment shader code */}
-      <div id="fragmentShader" style={{ display: "none" }}>
-        {fragCode}
-      </div>
-    </div>
-  );
+        validated_result = validated_result.replace(
+            new RegExp("gl_FragCoord", "g"),
+            "vUv"
+        );
+        // validated_result = validated_result.replace("gl_FragCoord", "vUv");
+
+        setResult(validated_result);
+        setFragCode(validated_result);
+    };
+
+    return (
+        <div style={containerStyle}>
+            {inputVisibility ? (
+                <>
+                    <PromptComponent
+                        style={PromptComponentStyle}
+                        getShader={eventPrompt}
+                        validator={validateResult}
+                    />
+                    <Buttons
+                        toggleInputVisibility={toggleInputVisibility}
+                        generateShader={eventPrompt}
+                        validator={validateResult}
+                    />
+
+                    <TextArea
+                        className={"InputArea"}
+                        value={fragCode}
+                        bordered={false}
+                        onChange={(e) => {
+                            setFragCode(e.target.value);
+                        }}
+                        rows={20}
+                        placeholder="Enter your fragment shader code here..."
+                        spellCheck={false}
+                        style={{
+                            fontStyle: loading ? "italic" : "normal",
+                            ...textareaComponentStyle,
+                        }}
+                    ></TextArea>
+                    <TextArea
+                        className={"ResultArea"}
+                        bordered={false}
+                        value={result}
+                        onChange={(e) => {}}
+                        rows={20}
+                        placeholder="Results from ChatGPT"
+                        spellCheck={false}
+                        style={{
+                            ...textareaComponentStyle,
+                            fontStyle: loading ? "italic" : "normal",
+                            display: "none",
+                        }}
+                    />
+                    <TextArea
+                        className={"ErrorMessageArea"}
+                        bordered={false}
+                        value={
+                            loading
+                                ? "Generating and compiling fragment shader ..."
+                                : shaderHasError
+                                ? `${shaderErrorMsg}`
+                                : "No error detected!"
+                        }
+                        onChange={(e) => {}}
+                        rows={10}
+                        placeholder="Results from ChatGPT"
+                        style={{
+                            ...textareaComponentStyle,
+                            color: "rgba(255, 0, 0,1)",
+                            fontStyle: loading ? "italic" : "normal",
+                            // display: shaderHasError ? "block" : "none",
+                        }}
+                        spellCheck={false}
+                    />
+                </>
+            ) : (
+                <>
+                    <Button
+                        type="primary"
+                        onClick={toggleInputVisibility}
+                        style={buttonStyles}
+                    >
+                        Show All
+                    </Button>
+                </>
+            )}
+            <div id="fragmentShader" style={{ display: "none" }}>
+                {fragCode}
+            </div>
+        </div>
+    );
 }
 
 export default ShaderComponent;
