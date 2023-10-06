@@ -8,6 +8,7 @@ import { ShaderPlane } from "./ShaderPlane";
 import { atom, useAtom } from "jotai";
 import { Canvas } from "@react-three/fiber";
 import { fs, vs, defaultFrag } from "./fragments";
+import { OrbitControls } from "@react-three/drei";
 
 // TODOS:
 // [x] loading state
@@ -24,6 +25,7 @@ export const promptAtom = atom("a sine wave in pink");
 export const loadingAtom = atom(false);
 export const shaderHasErrorAtom = atom(false);
 export const shaderErrorMsgAtom = atom("");
+export const geometryAtom = atom("PlaneGeometry")
 
 function App() {
     const ref = useRef();
@@ -35,17 +37,22 @@ function App() {
             <div style={mainStyle}>
                 <Canvas
                     ref={ref}
-                    camera={{ position: [0.0, 0.0, 8.0] }}
+                    // camera={{ position: [0.0, 0.0, 8.0] }}
                     style={{ width: "100%", zIndex: "0" }}
-					
                 >
+                    <OrbitControls enableZoom={true} />
                     <ambientLight intensity={0.03} />
-                    <directionalLight
-                        position={[0.3, 0.15, 0.0]}
-                        intensity={2}
-                    />
+                    <directionalLight position={[0, 0, 0.0]} intensity={2} />
 
-                    <ShaderPlane fs={fragment} vs={vertex} />
+                    {/* <ShaderPlane
+                        position={[1.2, 0, 0]}
+                        fs={fragment}
+                        vs={vertex}
+                    /> */}
+                    <ShaderPlane
+                        position={[0, 0, 0]}
+                        vs={vertex}
+                    />
                 </Canvas>
                 <ShaderComponent />
             </div>

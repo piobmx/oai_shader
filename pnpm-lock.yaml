@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@ant-design/icons':
+    specifier: ^5.2.6
+    version: 5.2.6(react-dom@18.2.0)(react@18.2.0)
   '@react-spring/three':
     specifier: ^9.7.3
     version: 9.7.3(@react-three/fiber@8.14.4)(react@18.2.0)(three@0.157.0)

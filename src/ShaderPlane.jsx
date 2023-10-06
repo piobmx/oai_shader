@@ -1,26 +1,34 @@
 import { useRef, useMemo, useState, Suspense } from "react";
 import { extend, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { MyMaterial } from "./MyMaterial";
 import { useEffect } from "react";
-import { fragAtom, shaderHasErrorAtom, shaderErrorMsgAtom } from "./App";
-import { OrbitControls } from "@react-three/drei";
+import {
+    fragAtom,
+    shaderHasErrorAtom,
+    shaderErrorMsgAtom,
+    geometryAtom,
+} from "./App";
 import { useAtom } from "jotai";
+import BoxGeometryComponent from "./BoxGeometryComponent";
+import SphereGeometryComponent from "./SphereGeometryComponent";
+import PlaneGeometryComponent from "./PlaneGeometryComponent";
 
-extend({ MyMaterial });
+const GeometryComponentMap = {
+    BoxGeometry: BoxGeometryComponent,
+    SphereGeometry: SphereGeometryComponent,
+    PlaneGeometry: PlaneGeometryComponent,
+};
 
-export function ShaderPlane({ fs, vs }) {
+export function ShaderPlane(props) {
     const ref = useRef();
     const refB = useRef();
 
     const { gl, viewport, size, get, clock } = useThree();
     const [fragCode, setFragCode] = useAtom(fragAtom);
-    const [pseudoFrag, setPseudoFrag] = useState(fragCode);
     const [shaderHasError, setShaderHasError] = useAtom(shaderHasErrorAtom);
     const [shaderErrorMsg, setShaderErrorMsg] = useAtom(shaderErrorMsgAtom);
 
-    const [currentErrMsg, setCurrentErrMsg] = useState("");
-    const [lastErrorMsg, setLastErrMessage] = useState("");
+    const [geometry, setGeometry] = useAtom(geometryAtom);
 
     // console.log("scale:", viewport.width, viewport.height);
     gl.debug.onShaderError = (
@@ -47,7 +55,6 @@ export function ShaderPlane({ fs, vs }) {
         // setPseudoFrag("#define das 3.141592653" + fragCode)
         clock.start();
     }, [fragCode]);
-
 
     useFrame((state) => {
         if (gl.info.programs.length > 0) {
@@ -81,14 +88,9 @@ export function ShaderPlane({ fs, vs }) {
                             .getContext()
                             .getShaderInfoLog(tempShader);
                         ei = info;
-                        // throw `Could not compile WebGL program. \n\n${info}`;
-                        // console.log("Could not compile", info);
-                        // setShaderErrorMsg(info)
-                        // setShaderHasError(true)
                     }
                 }
             } catch (err) {
-                // console.log("ERR!!", err);
             } finally {
                 if (ei === "") {
                     setShaderHasError(false);
@@ -118,31 +120,23 @@ export function ShaderPlane({ fs, vs }) {
         []
     );
 
-    return (
-        <mesh
-            ref={refB}
-            // scale={[viewport.width, viewport.height, 1.0]}
-            position={[1, 0, 0]}
-            onClick={() => {
-                clock.start();
-                console.log(ref.current);
-                console.log(gl);
-                console.log(refB);
-            }}
-        >
-            <OrbitControls enableZoom={true} />
-            <Suspense fallback={<h1>Waiting...</h1>}>
-                <sphereGeometry args={[1, 32]} />
+    const onClickAction = () => {
+        clock.start();
+        console.log(ref.current);
+        console.log(gl);
+    };
 
-                <shaderMaterial
-                    ref={ref}
-                    key={THREE.ShaderMaterial.key}
-                    // fragmentShader={fragCode}
-                    vertexShader={vs}
-                    uniforms={uniforms}
-                    side={THREE.DoubleSide}
-                />
-            </Suspense>
-        </mesh>
-    );
+    const GeometryProps = {
+        uniforms: uniforms,
+        position: props.position,
+        clock: clock,
+        vs: props.vs,
+        fs: fragCode,
+        viewport: viewport,
+        rref: ref,
+        onClickAction: onClickAction,
+    };
+    const GeometryToRender = GeometryComponentMap[geometry];
+
+    return <GeometryToRender {...GeometryProps} />;
 }

@@ -11,6 +11,38 @@
 body {
     margin: 0;
 }
+/* 
+:where(.css-dev-only-do-not-override-pr0fja).ant-select:not(
+        .ant-select-customize-input
+    )
+    .ant-select-selector
+    .ant-select-selection-search-input {
+} */
+:where(.css-dev-only-do-not-override-pr0fja).ant-dropdown .ant-dropdown-menu,
+:where(.css-dev-only-do-not-override-pr0fja).ant-dropdown-menu-submenu
+    .ant-dropdown-menu {
+    /* ul.ant-dropdown-menu { */
+    padding: 0px;
+    opacity: 1;
+    color: rgba(0, 0, 0, 0);
+}
+
+:where(.css-dev-only-do-not-override-pr0fja).ant-dropdown
+    .ant-dropdown-menu
+    .ant-dropdown-menu-item,
+:where(.css-dev-only-do-not-override-pr0fja).ant-dropdown-menu-submenu
+    .ant-dropdown-menu
+    .ant-dropdown-menu-item,
+:where(.css-dev-only-do-not-override-pr0fja).ant-dropdown
+    .ant-dropdown-menu
+    .ant-dropdown-menu-submenu-title,
+:where(.css-dev-only-do-not-override-pr0fja).ant-dropdown-menu-submenu
+    .ant-dropdown-menu
+    .ant-dropdown-menu-submenu-title {
+    border-radius: 0%;
+}
+
+/* :where(.css-dev-only-do-not-override-pr0fja).li:hover { */
 
 .ResultArea {
     font-family: "Fragment Mono", monospace;
@@ -53,12 +85,5 @@ textarea::-webkit-scrollbar-corner {
 
 textarea::-webkit-resizer {
     border: 2px solid rgba(85, 192, 108, 0.5);
-    /* background: blue; */
-    /* box-shadow: 0 0 2px 5px red; */
-    /* outline: 2px dashed green; */
-
-    /*size does not work*/
     display: block;
-    /* width: 150px !important; */
-    /* height: 150px !important; */
 }

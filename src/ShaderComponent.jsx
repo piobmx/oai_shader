@@ -9,7 +9,7 @@ import {
     loadingAtom,
 } from "./App";
 import PromptComponent from "./PromptComponent";
-import Buttons from "./Buttons";
+import UIComponents from "./UIComponents";
 import {
     textareaComponentStyle,
     containerStyle,
@@ -18,11 +18,11 @@ import {
 } from "./styles";
 
 const { TextArea } = Input;
-let apiUrl
+let apiUrl;
 if (import.meta.env.MODE === "development") {
     apiUrl = "http://127.0.0.1:3000/v1/api";
 } else {
-    apiUrl = "https://vercel-flask-fawn.vercel.app/v1/api"
+    apiUrl = "https://vercel-flask-fawn.vercel.app/v1/api";
 }
 
 function ShaderComponent() {
@@ -107,7 +107,7 @@ function ShaderComponent() {
                         getShader={eventPrompt}
                         validator={validateResult}
                     />
-                    <Buttons
+                    <UIComponents
                         toggleInputVisibility={toggleInputVisibility}
                         generateShader={eventPrompt}
                         validator={validateResult}
@@ -169,9 +169,12 @@ function ShaderComponent() {
                     <Button
                         type="primary"
                         onClick={toggleInputVisibility}
-                        style={buttonStyles}
+                        style={{
+                            ...buttonStyles,
+                            backgroundColor: "#ef12ef",
+                        }}
                     >
-                        Show All
+                        ToggleUI
                     </Button>
                 </>
             )}

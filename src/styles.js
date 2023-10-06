@@ -11,6 +11,7 @@ export const buttonStyles = {
     fontWeight: "500",
     fontFamily: "'Chakra Petch', sans-serif",
     borderRadius: "0px",
+    backgroundColor: "rgba(40, 40, 240, 1)"
 };
 
 export const PromptComponentStyle = {
@@ -30,3 +31,9 @@ export const textareaComponentStyle = {
     borderRadius: "1px",
     fontWeight: "bold",
 };
+
+export const CascaderComponentStyle = {
+    fontFamily: "'Chakra Petch', sans-serif",
+    backgroundColor: "rgba(40, 40, 240, 1)"
+
+}
