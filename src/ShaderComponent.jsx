@@ -101,7 +101,7 @@ let apiUrl;
 if (import.meta.env.MODE === "development") {
     apiUrl = "http://127.0.0.1:3000/v1/api";
 } else {
-    apiUrl = "https://vercel-flask-fawn.vercel.app/v1/api"
+    apiUrl = "https://vercel-flask-fawn.vercel.app/v1/api";
 }
 
 function ShaderComponent() {
@@ -112,6 +112,7 @@ function ShaderComponent() {
     const [inputVisibility, setInputVisibility] = useState(true);
     const [shaderHasError, setShaderHasError] = useAtom(shaderHasErrorAtom);
     const [shaderErrorMsg, setShaderErrorMsg] = useAtom(shaderErrorMsgAtom);
+    const [APIError, setAPIError] = useState("")
 
     const emptyResult = () => {
         setResult("");
@@ -147,7 +148,8 @@ function ShaderComponent() {
             setLoading(false);
             return streamText;
         } catch (error) {
-            console.error("Error:", error);
+            console.error("Fetch OpenAI API Error:", error);
+            setAPIError(error)
         }
     };
 
