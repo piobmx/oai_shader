@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input, Space, Button } from "antd";
-import { useAtom } from "jotai";
-import { promptAtom, loadingAtom } from "../../App";
+import { useAtom, useAtomValue } from "jotai";
+import { promptAtom, loadingAtom, cleanPromptAtom} from "../../App";
 
 function PromptComponent(props) {
     const [prompt, setPrompt] = useAtom(promptAtom);
@@ -24,7 +24,7 @@ function PromptComponent(props) {
                     onPressEnter={() => {
                         setLoading(true);
                         props
-                            .getShader()
+                            .generateShader()
                             .then((streamed) => props.validator(streamed));
                     }}
                     bordered={false}

@@ -22,7 +22,10 @@ const AboutContent = (
             not be regarded as typical generateive AI models. It might not
             produce literal interpretations of human language sometimes since it
             wasn't invented to. You can read more about shader{" "}
-            <a href="https://en.wikipedia.org/wiki/Shader">here</a>.
+            <a href="https://en.wikipedia.org/wiki/Shader" target="_blank">
+                here
+            </a>
+            .
         </p>
         <b>Stay Tuned for More!</b>
     </div>
@@ -42,7 +45,11 @@ const CornerComponent = () => {
                     </Button>
                 </Popover>
 
-                <a href="https://zhang-yi-wu.dev/" target="_blank" id="name">
+                <a href="https://github.com/piobmx/oai_shader" target="_blank" id="corner-item">
+                    Github
+                </a>
+
+                <a href="https://zhang-yi-wu.dev/" target="_blank" id="corner-item">
                     Zhangyi Wu @ 2023
                 </a>
             </Space>
@@ -56,7 +63,7 @@ const popoverStyle = {
 const cornerStyle = {
     position: "absolute",
     zIndex: "10",
-    right: "26%",
+    right: "16%",
     bottom: "2rem",
     fontFamily: "'Chakra Petch', sans-serif",
 };

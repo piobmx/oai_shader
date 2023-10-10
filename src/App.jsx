@@ -1,30 +1,31 @@
 import { useRef, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import ThreeCanvas from "./threeCanvas";
+import { Color } from "three";
 import ShaderComponent from "./components/UI/ShaderComponent";
 import { ShaderPlane } from "./ShaderPlane";
 import { atom, useAtom } from "jotai";
 import { Canvas } from "@react-three/fiber";
 import { fs, vs, defaultFrag } from "./utils/fragments";
-import { OrbitControls } from "@react-three/drei";
 import CornerComponent from "./components/UI/Corners";
-
-// TODOS:
-// [x] loading state
-// [x] search bar styles
-// [] personal informations
-// [] shader error handling
-// [] limit prompt length // https://ant.design/components/message
-// [x] api environments
-// "two humans" prompt break the rules
+import {
+    useGLTF,
+    GizmoHelper,
+    GizmoViewport,
+    OrbitControls,
+    Center,
+    TransformControls,
+    PerformanceMonitor,
+} from "@react-three/drei";
 
 export const vertAtom = atom("");
 // export const fragAtom = atom(defaultFrag);
 export const fragAtom = atom(fs);
 export const testAtom = atom(true);
 export const promptAtom = atom("create a fractal");
+export const cleanPromptAtom = atom((get) =>
+    get(promptAtom).slice(0, 1000).toLowerCase()
+);
+
 export const loadingAtom = atom(false);
 export const shaderHasErrorAtom = atom(false);
 export const shaderErrorMsgAtom = atom("");
@@ -35,6 +36,7 @@ function App() {
     const ref = useRef();
     const [vertex, setVert] = useState(vs);
     const [fragment, setFragment] = useAtom(fragAtom);
+    const bgColor = new Color(0x20201b);
 
     return (
         <>
@@ -45,6 +47,16 @@ function App() {
                     gl={{ preserveDrawingBuffer: true }}
                     style={{ width: "100%", zIndex: "0" }}
                 >
+                    <color
+                        attach="background"
+                        args={[bgColor.r, bgColor.g, bgColor.b]}
+                    />
+                    <ambientLight intensity={1} />
+                    <directionalLight color="red" position={[0, 0, 5]} />
+                    {/* <directionalLight position={[0, 0, 0.0]} intensity={2} /> */}
+                    {/* <TransformControls> */}
+                    <ShaderPlane position={[0, 0, 0]} vs={vertex} />
+                    {/* </TransformControls> */}
                     <OrbitControls
                         enableZoom={true}
                         panSpeed={10}
@@ -52,15 +64,9 @@ function App() {
                         zoomToCursor={true}
                         dampingFactor={0.2}
                     />
-                    <ambientLight intensity={0.03} />
-                    <directionalLight position={[0, 0, 0.0]} intensity={2} />
-
-                    {/* <ShaderPlane
-                        position={[1.2, 0, 0]}
-                        fs={fragment}
-                        vs={vertex}
-                    /> */}
-                    <ShaderPlane position={[0, 0, 0]} vs={vertex} />
+                    {/* <GizmoHelper alignment="bottom-right" margin={[100, 100]}>
+                        <GizmoViewport labelColor="white" axisHeadScale={1} />
+                    </GizmoHelper> */}
                 </Canvas>
                 <ShaderComponent />
                 <CornerComponent />

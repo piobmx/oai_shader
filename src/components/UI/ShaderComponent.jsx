@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Button, Input } from "antd";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import {
     promptAtom,
     fragAtom,
     shaderErrorMsgAtom,
+    cleanPromptAtom,
     shaderHasErrorAtom,
     loadingAtom,
 } from "../../App";
@@ -102,6 +103,7 @@ function ShaderComponent() {
     const [shaderHasError, setShaderHasError] = useAtom(shaderHasErrorAtom);
     const [shaderErrorMsg, setShaderErrorMsg] = useAtom(shaderErrorMsgAtom);
     const [APIError, setAPIError] = useState("");
+    const cleanPrompt = useAtomValue(cleanPromptAtom);
 
     const emptyResult = () => {
         // setResult("");
@@ -116,10 +118,11 @@ function ShaderComponent() {
         emptyResult();
         setAPIError("");
 
+        console.log(cleanPrompt)
         try {
             // const response = await getCompletions(prompt);
             const response = await getStreamedCompletions(
-                prompt,
+                cleanPrompt,
                 setFragCodeCb
             );
             return response;
@@ -173,7 +176,6 @@ function ShaderComponent() {
                         generateShader={eventPrompt}
                         validator={validateResult}
                     />
-                    {/* <CascaderGeometrySelector /> */}
 
                     <UIComponents
                         toggleInputVisibility={toggleInputVisibility}

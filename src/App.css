@@ -133,14 +133,15 @@ code {
 }
 
 .ant-btn #about {
+    z-index: 50;
     padding: 0;
 }
 
-#name {
+#corner-item {
     color: #000;
     font-size: small;
 }
 
-#name:hover {
+#corner-item:hover {
     color: #fff;
 }
