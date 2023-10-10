@@ -3,13 +3,13 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import ThreeCanvas from "./threeCanvas";
-import ShaderComponent from "./ShaderComponent";
+import ShaderComponent from "./components/UI/ShaderComponent";
 import { ShaderPlane } from "./ShaderPlane";
 import { atom, useAtom } from "jotai";
 import { Canvas } from "@react-three/fiber";
-import { fs, vs, defaultFrag } from "./fragments";
+import { fs, vs, defaultFrag } from "./utils/fragments";
 import { OrbitControls } from "@react-three/drei";
-import CornerComponent from "./Corners";
+import CornerComponent from "./components/UI/Corners";
 
 // TODOS:
 // [x] loading state

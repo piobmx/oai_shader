@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "antd";
 import { useAtom } from "jotai";
-import { promptAtom, loadingAtom } from "./App";
+import { promptAtom, loadingAtom } from "../../App";
 
 function PromptComponent(props) {
     const [prompt, setPrompt] = useAtom(promptAtom);

@@ -2,8 +2,8 @@ import React from "react";
 import { Menu, Dropdown } from "antd";
 import { useAtom } from "jotai";
 import { DownOutlined } from "@ant-design/icons";
-import { CascaderComponentStyle } from "./styles";
-import { geometryAtom } from "./App";
+import { CascaderComponentStyle } from "../../styles";
+import { geometryAtom } from "../../App";
 
 const CascaderGeometrySelector = ({ onUserGeometryChange }) => {
     const [geometry, setGeometry] = useAtom(geometryAtom);

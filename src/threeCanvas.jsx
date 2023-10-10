@@ -2,7 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { useRef } from "react";
 
-import Cube from "./Cube";
+import Cube from "./components/Geometries/Cube";
 
 export default (props) => {
 	return(

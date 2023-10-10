@@ -7,13 +7,13 @@ import {
     shaderErrorMsgAtom,
     shaderHasErrorAtom,
     loadingAtom,
-} from "./App";
+} from "../../App";
 import PromptComponent from "./PromptComponent";
 import UIComponents from "./Buttons";
 import Editor from "react-simple-code-editor";
 import Prism from "prismjs";
 import { highlight, languages } from "prismjs/components/prism-core";
-import { getCompletions, getStreamedCompletions } from "./BetaAzureAPI";
+import { getCompletions, getStreamedCompletions } from "../../utils/BetaAzureAPI";
 import "prismjs/themes/prism-funky.css";
 (Prism.languages.c = Prism.languages.extend("clike", {
     comment: {
@@ -88,7 +88,7 @@ import {
     containerStyle,
     buttonStyles,
     PromptComponentStyle,
-} from "./styles";
+} from "../../styles";
 
 const { TextArea } = Input;
 let apiUrl;

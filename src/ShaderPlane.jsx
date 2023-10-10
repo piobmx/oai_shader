@@ -9,9 +9,9 @@ import {
     geometryAtom,
 } from "./App";
 import { useAtom } from "jotai";
-import BoxGeometryComponent from "./BoxGeometryComponent";
-import SphereGeometryComponent from "./SphereGeometryComponent";
-import PlaneGeometryComponent from "./PlaneGeometryComponent";
+import BoxGeometryComponent from "./components/Geometries/BoxGeometryComponent";
+import SphereGeometryComponent from "./components/Geometries/SphereGeometryComponent";
+import PlaneGeometryComponent from "./components/Geometries/PlaneGeometryComponent";
 
 const GeometryComponentMap = {
     BoxGeometry: BoxGeometryComponent,

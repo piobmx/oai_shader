@@ -2,7 +2,7 @@ import { useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { useAtom } from "jotai";
-import { testAtom, fragAtom, vertAtom } from "./App";
+import { testAtom, fragAtom, vertAtom } from "../../App";
 import * as THREE from "three";
 
 const Cube = (props) => {
