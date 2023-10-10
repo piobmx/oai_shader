@@ -133,7 +133,7 @@ code {
     background-color: rgba(192, 192, 192, 0.2);
 }
 
-.ant-btn {
+.ant-btn #about {
     padding: 0;
 }
 

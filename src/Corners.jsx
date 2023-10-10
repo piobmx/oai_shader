@@ -33,7 +33,7 @@ const CornerComponent = () => {
         <>
             <Space wrap style={cornerStyle} split="|">
                 <Popover content={AboutContent} title="About" trigger="click">
-                    <Button className="cornerButton" style={buttonStyle}>
+                    <Button id="about" className="cornerButton" style={buttonStyle}>
                         About
                     </Button>
                 </Popover>
