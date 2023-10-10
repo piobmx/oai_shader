@@ -10,16 +10,10 @@ import {
 } from "./App";
 import PromptComponent from "./PromptComponent";
 import UIComponents from "./Buttons";
-import { CodeBlock, dracula } from "react-code-blocks";
-import SyntaxHighlighter from "react-syntax-highlighter";
 import Editor from "react-simple-code-editor";
 import Prism from "prismjs";
 import { highlight, languages } from "prismjs/components/prism-core";
-import CornerComponent from "./Corners";
-// import "prismjs/components/prism-cooklang";
-import CascaderGeometrySelector from "./CascaderGeometrySelector";
-import "prismjs/components/prism-clike";
-import "prismjs/components/prism-javascript";
+import { getCompletions, getStreamedCompletions } from "./BetaAzureAPI";
 import "prismjs/themes/prism-funky.css";
 (Prism.languages.c = Prism.languages.extend("clike", {
     comment: {
@@ -108,48 +102,36 @@ function ShaderComponent() {
     const [fragCode, setFragCode] = useAtom(fragAtom);
     const [prompt, setPrompt] = useAtom(promptAtom);
     const [loading, setLoading] = useAtom(loadingAtom);
-    const [result, setResult] = useState("");
     const [inputVisibility, setInputVisibility] = useState(true);
     const [shaderHasError, setShaderHasError] = useAtom(shaderHasErrorAtom);
     const [shaderErrorMsg, setShaderErrorMsg] = useAtom(shaderErrorMsgAtom);
-    const [APIError, setAPIError] = useState("")
+    const [APIError, setAPIError] = useState("");
 
     const emptyResult = () => {
-        setResult("");
+        // setResult("");
+        // setFragCode("");
+    };
+
+    const setFragCodeCb = (input) => {
+        setFragCode(input);
     };
 
     const eventPrompt = async () => {
         emptyResult();
-        console.log(`processing prompt: ${prompt}`);
+        setAPIError("");
+
         try {
-            const response = await fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    promptMessage: prompt.toLowerCase(),
-                }),
-
-                // body: prompt.toLowerCase(),
-                // promptMessage: prompt.toLowerCase(),
-            });
-
-            const reader = response.body.getReader();
-            let streamText = "";
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-                setLoading(true);
-                streamText += new TextDecoder().decode(value);
-                setFragCode(streamText);
-                setResult(streamText);
-            }
-            setLoading(false);
-            return streamText;
+            // const response = await getCompletions(prompt);
+            const response = await getStreamedCompletions(
+                prompt,
+                setFragCodeCb
+            );
+            return response;
         } catch (error) {
             console.error("Fetch OpenAI API Error:", error);
-            setAPIError(error)
+            setAPIError(error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -183,7 +165,6 @@ function ShaderComponent() {
         );
         // validated_result = validated_result.replace("gl_FragCoord", "vUv");
 
-        setResult(validated_result);
         setFragCode(validated_result);
     };
 
@@ -235,20 +216,6 @@ function ShaderComponent() {
 
                     {/* <Editor></Editor> */}
 
-                    {/* <TextArea
-                        className={"ResultArea"}
-                        bordered={false}
-                        value={result}
-                        onChange={(e) => {}}
-                        rows={20}
-                        placeholder="Results from ChatGPT"
-                        spellCheck={false}
-                        style={{
-                            ...textareaComponentStyle,
-                            fontStyle: loading ? "italic" : "normal",
-                            display: "none",
-                        }}
-                    /> */}
                     <TextArea
                         className={"ErrorMessageArea"}
                         bordered={false}

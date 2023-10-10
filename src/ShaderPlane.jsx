@@ -122,8 +122,8 @@ export function ShaderPlane(props) {
 
     const onClickAction = () => {
         clock.start();
-        console.log(ref.current);
-        console.log(gl);
+        // console.log(ref.current);
+        // console.log(gl);
     };
 
     const GeometryProps = {

@@ -11,13 +11,16 @@ const BoxGeometryComponent = ({
     rref,
     onClickAction,
 }) => {
-    const scaleToScreen = true
-    console.log(viewport.width);
-    const b = 1
-    const heightScale = viewport.width / b 
+    const scaleToScreen = true;
+    const b = 1;
+    const heightScale = viewport.width / b;
     return (
         <mesh
-            scale={[viewport.width * 0.6, viewport.height * 0.6, viewport.height * 0.6]}
+            scale={[
+                viewport.width * 0.6,
+                viewport.height * 0.6,
+                viewport.height * 0.6,
+            ]}
             position={position}
             onClick={onClickAction}
         >
