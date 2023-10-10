@@ -101,7 +101,7 @@ let apiUrl;
 if (import.meta.env.MODE === "development") {
     apiUrl = "http://127.0.0.1:3000/v1/api";
 } else {
-    apiUrl = "https://vercel-flask-m6fgfyfdb-szanyi.vercel.app/v1/api";
+    apiUrl = "https://vercel-flask-1g8pzgx29-szanyi.vercel.app/v1/api"
 }
 
 function ShaderComponent() {
