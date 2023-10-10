@@ -13,8 +13,10 @@ import UIComponents from "./Buttons";
 import Editor from "react-simple-code-editor";
 import Prism from "prismjs";
 import { highlight, languages } from "prismjs/components/prism-core";
-import { getCompletions, getStreamedCompletions } from "../../utils/BetaAzureAPI";
-import "prismjs/themes/prism-funky.css";
+import {
+    getCompletions,
+    getStreamedCompletions,
+} from "../../utils/BetaAzureAPI";
 (Prism.languages.c = Prism.languages.extend("clike", {
     comment: {
         pattern:
@@ -91,12 +93,6 @@ import {
 } from "../../styles";
 
 const { TextArea } = Input;
-let apiUrl;
-if (import.meta.env.MODE === "development") {
-    apiUrl = "http://127.0.0.1:3000/v1/api";
-} else {
-    apiUrl = "https://vercel-flask-fawn.vercel.app/v1/api";
-}
 
 function ShaderComponent() {
     const [fragCode, setFragCode] = useAtom(fragAtom);

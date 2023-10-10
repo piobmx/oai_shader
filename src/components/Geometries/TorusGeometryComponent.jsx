@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import * as THREE from "three";
 
-const SphereGeometryComponent = ({
+const TorusKnotGeometryComponent = ({
     uniforms,
     viewport,
     position,
@@ -9,16 +9,20 @@ const SphereGeometryComponent = ({
     vs,
     fs,
     rref,
-    onClickAction
+    onClickAction,
 }) => {
     return (
         <mesh
-            // scale={[viewport.width, viewport.height, 1.0]}
+            // scale={[
+            //     viewport.width * 0.6,
+            //     viewport.height * 0.6,
+            //     viewport.height * 0.6,
+            // ]}
             position={position}
             onClick={onClickAction}
         >
             <Suspense fallback={<h1>Waiting...</h1>}>
-                <sphereGeometry args={[2]} />
+                <torusKnotGeometry args={[5, 1, 100, 100]} />
 
                 <shaderMaterial
                     ref={rref}
@@ -33,4 +37,4 @@ const SphereGeometryComponent = ({
     );
 };
 
-export default SphereGeometryComponent;
+export default TorusKnotGeometryComponent;

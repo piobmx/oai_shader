@@ -28,6 +28,11 @@ const CascaderGeometrySelector = ({ onUserGeometryChange }) => {
             key: "SphereGeometry",
             style: DropdownItemStyle,
         },
+        {
+            label: "Torus Knot",
+            key: "TorusKnotGeometry",
+            style: DropdownItemStyle,
+        },
     ];
 
     return (
@@ -39,8 +44,7 @@ const CascaderGeometrySelector = ({ onUserGeometryChange }) => {
                 }}
                 trigger={["click"]}
                 overlayClassName="overlay"
-                overlayStyle={{
-                }}
+                overlayStyle={{}}
             >
                 <a
                     className="antd-dropdown-link"
