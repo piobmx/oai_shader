@@ -18,29 +18,6 @@ body {
     .ant-select-selector
     .ant-select-selection-search-input {
 } */
-:where(.css-dev-only-do-not-override-pr0fja).ant-dropdown .ant-dropdown-menu,
-:where(.css-dev-only-do-not-override-pr0fja).ant-dropdown-menu-submenu
-    .ant-dropdown-menu {
-    /* ul.ant-dropdown-menu { */
-    padding: 0px;
-    opacity: 1;
-    color: rgba(0, 0, 0, 0);
-}
-
-:where(.css-dev-only-do-not-override-pr0fja).ant-dropdown
-    .ant-dropdown-menu
-    .ant-dropdown-menu-item,
-:where(.css-dev-only-do-not-override-pr0fja).ant-dropdown-menu-submenu
-    .ant-dropdown-menu
-    .ant-dropdown-menu-item,
-:where(.css-dev-only-do-not-override-pr0fja).ant-dropdown
-    .ant-dropdown-menu
-    .ant-dropdown-menu-submenu-title,
-:where(.css-dev-only-do-not-override-pr0fja).ant-dropdown-menu-submenu
-    .ant-dropdown-menu
-    .ant-dropdown-menu-submenu-title {
-    border-radius: 0%;
-}
 
 /* :where(.css-dev-only-do-not-override-pr0fja).li:hover { */
 
@@ -57,6 +34,10 @@ body {
 .ErrorMessageArea {
     font-family: "Fragment Mono", monospace;
     text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
+}
+
+.ErrorMessageArea:hover {
+    background-color: rgba(192, 192, 192, 0.9) !important;
 }
 
 .prompt-input {
@@ -86,4 +67,81 @@ textarea::-webkit-scrollbar-corner {
 textarea::-webkit-resizer {
     border: 2px solid rgba(85, 192, 108, 0.5);
     display: block;
+}
+
+div.codearea span {
+    background: rgba(100, 100, 100, 0.5) !important;
+    background-color: rgba(100, 100, 100, 0.5) !important;
+}
+
+code {
+    line-height: 1.1 !important;
+    color: white;
+    font-family: "Fragment Mono", monospace !important;
+    text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
+}
+.editor {
+    font-family: "Fragment Mono", monospace;
+    counter-reset: line;
+    color: rgba(232, 232, 232, 1);
+    font-size: 12px;
+    /* text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff; */
+}
+
+.editor:hover {
+    background-color: rgba(48, 20, 180, 0.8);
+    border: 1px solid #ced4da;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+
+    padding: 2px 2px;
+}
+
+.editor #codeArea {
+    /* color: white; */
+    border: 1px solid #ced4da;
+    padding-left: 48px !important;
+}
+
+.editor pre {
+    padding-left: 3rem !important;
+}
+
+.editor .editorLineNumber {
+    /* font-family: "Fragment Mono", monospace !important; */
+    position: absolute;
+    left: 0px;
+    color: #aaa;
+    text-align: right;
+    width: 40px;
+    font-weight: 500;
+}
+
+.ant-dropdown .ant-dropdown-menu {
+    background-color: none;
+    background: none;
+}
+
+.cornerButton:hover {
+    color: red;
+}
+
+.ant-popover .ant-popover-inner {
+    width: 20rem;
+    font-family: "Chakra Petch", sans-serif !important;
+    background-color: rgba(192, 192, 192, 0.2);
+}
+
+.ant-btn {
+    padding: 0;
+}
+
+#name {
+    color: #000;
+    font-size: small;
+}
+
+#name:hover {
+    color: #fff;
 }

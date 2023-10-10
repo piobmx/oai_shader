@@ -2,7 +2,8 @@ import React from "react";
 import { Button, Popconfirm, Space, Upload } from "antd";
 import { loadingAtom, promptAtom, fragAtom } from "./App";
 import { useAtom } from "jotai";
-import { buttonStyles } from "./styles";
+import { CascaderComponentStyle, buttonStyles } from "./styles";
+import CascaderGeometrySelector from "./CascaderGeometrySelector";
 
 function UIComponents(props) {
     const [loading, setLoading] = useAtom(loadingAtom);
@@ -34,6 +35,8 @@ function UIComponents(props) {
             >
                 Generate!
             </Button>
+            <CascaderGeometrySelector/>
+
         </Space>
     );
 }

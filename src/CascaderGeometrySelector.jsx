@@ -40,8 +40,6 @@ const CascaderGeometrySelector = ({ onUserGeometryChange }) => {
                 trigger={["click"]}
                 overlayClassName="overlay"
                 overlayStyle={{
-                    // color: "red",
-                    // backgroundColor: "blue",
                 }}
             >
                 <a

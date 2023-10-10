@@ -18,9 +18,13 @@
     "antd": "^5.9.4",
     "axios": "^1.5.1",
     "jotai": "^2.4.3",
+    "prismjs": "^1.29.0",
     "react": "^18.2.0",
+    "react-code-blocks": "^0.1.4",
     "react-dom": "^18.2.0",
     "react-p5": "^1.4.1",
+    "react-simple-code-editor": "^0.13.1",
+    "react-syntax-highlighter": "^15.5.0",
     "three": "^0.157.0",
     "three-custom-shader-material": "^5.4.0"
   },

@@ -35,7 +35,6 @@ function UIComponents(props) {
             >
                 Generate!
             </Button>
-            <CascaderGeometrySelector />
         </Space>
     );
 }

@@ -9,23 +9,25 @@ import { atom, useAtom } from "jotai";
 import { Canvas } from "@react-three/fiber";
 import { fs, vs, defaultFrag } from "./fragments";
 import { OrbitControls } from "@react-three/drei";
+import CornerComponent from "./Corners";
 
 // TODOS:
 // [x] loading state
 // [x] search bar styles
 // [] personal informations
 // [] shader error handling
-// [] limit prompt length
-// [] api environments
+// [] limit prompt length // https://ant.design/components/message
+// [x] api environments
 
 export const vertAtom = atom("");
-export const fragAtom = atom(defaultFrag);
+// export const fragAtom = atom(defaultFrag);
+export const fragAtom = atom(fs);
 export const testAtom = atom(true);
-export const promptAtom = atom("a sine wave in pink");
+export const promptAtom = atom("a fractal graph");
 export const loadingAtom = atom(false);
 export const shaderHasErrorAtom = atom(false);
 export const shaderErrorMsgAtom = atom("");
-export const geometryAtom = atom("PlaneGeometry")
+export const geometryAtom = atom("PlaneGeometry");
 
 function App() {
     const ref = useRef();
@@ -49,12 +51,10 @@ function App() {
                         fs={fragment}
                         vs={vertex}
                     /> */}
-                    <ShaderPlane
-                        position={[0, 0, 0]}
-                        vs={vertex}
-                    />
+                    <ShaderPlane position={[0, 0, 0]} vs={vertex} />
                 </Canvas>
                 <ShaderComponent />
+                <CornerComponent />
             </div>
         </>
     );
