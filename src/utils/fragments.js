@@ -1,13 +1,24 @@
 export const fs = `
-precision highp float; 
-#define pi 3.1415926535
-uniform vec2 u_resolution;
-uniform float u_time;
 varying vec2 vUv;
-void main() { 
-	gl_FragColor = vec4(0.5, 0.1, 0.04, 1.0);
+uniform float u_time;
+uniform vec2 u_resolution;
+void main() {
+    vec2 st = vUv * u_resolution.xy;
+    vec2 c = st;
+    vec2 z = vec2(0.0);
+    float m = 0.0;
+    for(int i = 0; i < 300; i++) {
+        if(dot(z, z) > 1000.0) break;
+        vec2 zt = vec2(z.x*z.x - z.y*z.y, 2.0*z.x*z.y) + c;
+        z = zt;
+        m += 1.0;
+    }
+    m = m/20.0;
+    vec3 color = vec3(m, m*m, m*m*m);
+    gl_FragColor = vec4(color,1.0);
 }
-	`;
+`;
+
 export const vs = `
 precision highp float; 
 varying vec2 vUv;

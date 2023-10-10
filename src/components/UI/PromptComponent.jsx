@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "antd";
+import { Input, Space, Button } from "antd";
 import { useAtom } from "jotai";
 import { promptAtom, loadingAtom } from "../../App";
 
@@ -10,29 +10,57 @@ function PromptComponent(props) {
     return (
         <div>
             {/* Textarea for entering the fragment shader code */}
-            <Input
-                className="prompt-input"
-                value={prompt}
-                onChange={(e) => {
-                    setPrompt(e.target.value);
+            <Space.Compact
+                style={{
+                    width: "100%",
                 }}
-                onPressEnter={() => {
-                    setLoading(true);
-                    props
-                        .getShader()
-                        .then((streamed) => props.validator(streamed));
-                }}
-                bordered={false}
-                placeholder="Prompt..."
-                style={promptInputStyle}
-            />
-
+            >
+                <Input
+                    className="prompt-input"
+                    value={prompt}
+                    onChange={(e) => {
+                        setPrompt(e.target.value);
+                    }}
+                    onPressEnter={() => {
+                        setLoading(true);
+                        props
+                            .getShader()
+                            .then((streamed) => props.validator(streamed));
+                    }}
+                    bordered={false}
+                    placeholder="Prompt..."
+                    style={promptInputStyle}
+                />
+                <Button
+                    loading={loading}
+                    type="primary"
+                    style={promptButtonStyles}
+                    onClick={() => {
+                        if (!loading) {
+                            setLoading(true);
+                        }
+                        props
+                            .generateShader()
+                            .then((streamed) => props.validator(streamed));
+                    }}
+                >
+                    Generate
+                </Button>
+            </Space.Compact>
             <div id="prompt" style={{ display: "none" }}>
                 {prompt}
             </div>
         </div>
     );
 }
+
+const promptButtonStyles = {
+    marginTop: "0.4rem",
+    fontWeight: "500",
+    fontFamily: "'Chakra Petch', sans-serif",
+    borderRadius: "0px",
+    backgroundColor: "rgba(40, 40, 240, 1)",
+};
 
 const promptInputStyle = {
     backgroundColor: "rgba(100, 100, 100, 0.3)",

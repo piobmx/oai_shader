@@ -170,7 +170,7 @@ function ShaderComponent() {
                 <>
                     <PromptComponent
                         style={PromptComponentStyle}
-                        getShader={eventPrompt}
+                        generateShader={eventPrompt}
                         validator={validateResult}
                     />
                     {/* <CascaderGeometrySelector /> */}

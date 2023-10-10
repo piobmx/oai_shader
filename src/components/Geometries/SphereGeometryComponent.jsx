@@ -1,5 +1,7 @@
+import { extend } from "@react-three/fiber";
 import { Suspense } from "react";
 import * as THREE from "three";
+
 
 const SphereGeometryComponent = ({
     uniforms,
@@ -9,7 +11,7 @@ const SphereGeometryComponent = ({
     vs,
     fs,
     rref,
-    onClickAction
+    onClickAction,
 }) => {
     return (
         <mesh

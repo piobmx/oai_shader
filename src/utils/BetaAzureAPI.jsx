@@ -28,7 +28,7 @@ const getPromptObject = (user_prompt, mode) => {
 };
 
 const chatOptions = {
-    temperature: 0.6,
+    temperature: 0.0,
     // maxTokens: 128,
 };
 

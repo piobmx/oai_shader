@@ -13,6 +13,7 @@ import BoxGeometryComponent from "./components/Geometries/BoxGeometryComponent";
 import SphereGeometryComponent from "./components/Geometries/SphereGeometryComponent";
 import PlaneGeometryComponent from "./components/Geometries/PlaneGeometryComponent";
 import TorusKnotGeometryComponent from "./components/Geometries/TorusGeometryComponent";
+import { downloadAtom } from "./App";
 
 const GeometryComponentMap = {
     BoxGeometry: BoxGeometryComponent,
@@ -33,6 +34,7 @@ export function ShaderPlane(props) {
     const [debugTriggered, setDebugTriggered] = useState(false);
 
     const [geometry, setGeometry] = useAtom(geometryAtom);
+    const [downloadLink, setDownloadLink] = useAtom(downloadAtom);
 
     // console.log("scale:", viewport.width, viewport.height);
     gl.debug.onShaderError = (
@@ -65,50 +67,6 @@ export function ShaderPlane(props) {
     }, [fragCode]);
 
     useFrame((state) => {
-        // if (gl.info.programs.length > 0) {
-        //     const l = gl.info.programs.length;
-        //     // console.log(l);
-        //     let dg = [];
-        //     gl.info.programs.map((o) => dg.push(o));
-        //     // console.log(dg);
-        //     let ei = "";
-        //     try {
-        //         if (dg.length > 1) {
-        //             let lastProgram = dg[dg.length - 1];
-        //             const tempShader = gl
-        //                 .getContext()
-        //                 .createShader(gl.getContext().FRAGMENT_SHADER);
-
-        //             const fragmentToCompile =
-        //                 " precision mediump float;" + fragCode;
-        //             gl.getContext().shaderSource(tempShader, fragmentToCompile);
-        //             gl.getContext().compileShader(tempShader);
-
-        //             if (
-        //                 !gl
-        //                     .getContext()
-        //                     .getShaderParameter(
-        //                         tempShader,
-        //                         gl.getContext().COMPILE_STATUS
-        //                     )
-        //             ) {
-        //                 const info = gl
-        //                     .getContext()
-        //                     .getShaderInfoLog(tempShader);
-        //                 ei = info;
-        //             }
-        //         }
-        //     } catch (err) {
-        //     } finally {
-        //         if (ei === "") {
-        //             setShaderHasError(false);
-        //             setShaderErrorMsg(ei);
-        //         } else {
-        //             setShaderHasError(true);
-        //             setShaderErrorMsg(ei);
-        //         }
-        //     }
-        // }
         if (ref.current) {
             ref.current.uniforms.u_time.value = clock.getElapsedTime();
         }
@@ -129,9 +87,11 @@ export function ShaderPlane(props) {
     );
 
     const onClickAction = () => {
-        clock.start();
+        // clock.start();
         // console.log(ref.current);
         // console.log(gl);
+        const screenshot = gl.domElement.toDataURL("image/png", 1.0);
+        setDownloadLink(screenshot);
     };
 
     const GeometryProps = {

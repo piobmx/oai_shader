@@ -18,16 +18,18 @@ import CornerComponent from "./components/UI/Corners";
 // [] shader error handling
 // [] limit prompt length // https://ant.design/components/message
 // [x] api environments
+// "two humans" prompt break the rules
 
 export const vertAtom = atom("");
 // export const fragAtom = atom(defaultFrag);
 export const fragAtom = atom(fs);
 export const testAtom = atom(true);
-export const promptAtom = atom("a fractal graph");
+export const promptAtom = atom("create a fractal");
 export const loadingAtom = atom(false);
 export const shaderHasErrorAtom = atom(false);
 export const shaderErrorMsgAtom = atom("");
 export const geometryAtom = atom("PlaneGeometry");
+export const downloadAtom = atom("");
 
 function App() {
     const ref = useRef();
@@ -40,9 +42,16 @@ function App() {
                 <Canvas
                     ref={ref}
                     // camera={{ position: [0.0, 0.0, 8.0] }}
+                    gl={{ preserveDrawingBuffer: true }}
                     style={{ width: "100%", zIndex: "0" }}
                 >
-                    <OrbitControls enableZoom={true} />
+                    <OrbitControls
+                        enableZoom={true}
+                        panSpeed={10}
+                        // zoomSpeed={3}
+                        zoomToCursor={true}
+                        dampingFactor={0.2}
+                    />
                     <ambientLight intensity={0.03} />
                     <directionalLight position={[0, 0, 0.0]} intensity={2} />
 
