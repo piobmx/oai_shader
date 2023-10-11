@@ -1,21 +1,21 @@
 export const fs = `
+
 varying vec2 vUv;
 uniform float u_time;
 uniform vec2 u_resolution;
 void main() {
-    vec2 st = vUv * u_resolution.xy;
-    vec2 c = st;
-    vec2 z = vec2(0.0);
-    float m = 0.0;
-    for(int i = 0; i < 300; i++) {
-        if(dot(z, z) > 1000.0) break;
-        vec2 zt = vec2(z.x*z.x - z.y*z.y, 2.0*z.x*z.y) + c;
-        z = zt;
-        m += 1.0;
+    vec2 uv = (vUv.xy - 0.5 * u_resolution.xy) / min(u_resolution.y, u_resolution.x);
+    vec2 c = vec2(0.5 * sin(u_time), 0.5 * cos(u_time));
+    vec2 z = uv;
+    float iter = 0.0;
+    for (int i = 0; i < 100; i++) {
+        if (length(z) > 2.0) break;
+        vec2 temp = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + c;
+        z = temp;
+        iter++;
     }
-    m = m/20.0;
-    vec3 color = vec3(m, m*m, m*m*m);
-    gl_FragColor = vec4(color,1.0);
+    float color = iter / 100.0;
+    gl_FragColor = vec4(vec3(color), 1.0);
 }
 `;
 
