@@ -111,7 +111,6 @@ function ShaderComponent() {
 
   const validateResult = (streamedResult) => {
     if (streamedResult === "") {
-      console.log("2");
       return;
     }
     const prefixes = [

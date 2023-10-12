@@ -84,9 +84,9 @@ function App() {
             <GizmoHelper
               makeDefault
               alignment="bottom-right"
-              onUpdate={() => {
-                console.log(orbitref.current.minPolarAngle);
-              }}
+            //   onUpdate={() => {
+            //     console.log(orbitref.current.minPolarAngle);
+            //   }}
               margin={[100, 100]}
             >
               <GizmoViewport labelColor="white" axisHeadScale={1} />

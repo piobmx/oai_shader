@@ -49,7 +49,7 @@ body {
 
 .prompt-input {
   color: white;
-  text-shadow: 1px 1px 2px #3311a1, 0 0 1em #55ff33, 0 0 0.2em white;
+  /* text-shadow: 1px 1px 2px #3311a1, 0 0 1em #55ff33, 0 0 0.2em white; */
 }
 
 textarea::-webkit-scrollbar {
