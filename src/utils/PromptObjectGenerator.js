@@ -1,19 +1,37 @@
 export default function getPromptObject(user_prompt, mode) {
-    if (mode === "test") {
-        return [
-            {
-                role: "system",
-                content: "you are a waiter at a french restaurant",
-            },
-            { role: "user", content: `what's the special tonight?` },
-        ];
-    } else {
-        return [
-            { role: "system", content: defaultSystemPrompt },
-            { role: "user", content: `a fragment snippet for ${user_prompt}` },
-        ];
-    }
+  if (mode === "test") {
+    return [
+      {
+        role: "system",
+        content: "you are a waiter at a french restaurant",
+      },
+      { role: "user", content: `what's the special tonight?` },
+    ];
+  } else if (mode === "inspiration") {
+    return [
+      { role: "system", content: alterSystemPrompt },
+      {
+        role: "user",
+        content: `make this code more interesting: """${user_prompt}"""`,
+      },
+    ];
+  } else {
+    return [
+      { role: "system", content: defaultSystemPrompt },
+      { role: "user", content: `a fragment snippet for ${user_prompt}` },
+    ];
+  }
 }
+
+const alterSystemPrompt = `
+You will receive a fragment shader code.
+Your task is to understand and tinker with the code a little bit with your creativity.
+Do not modify crucial variables in the fragment code, like uniforms or varyings.
+Result MUST NOT use textures.
+Result MUST NOT contains any explainations!
+Result MUST include only code, do not surround the code with \`\`\`, """ or any symbols
+The PRIORITY is to ensure no errors were introduced.
+`;
 
 const defaultSystemPrompt = `
 uniform vec2 u_resolution;

@@ -1,16 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600&family=Fragment+Mono:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600&family=Fragment+Mono:ital@0;1&isplay=swap");
 
 #root {
-    width: 100%;
-    height: 100%;
-    min-height: 720px;
-    margin: 0;
-    padding: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 720px;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    margin: 0;
+  margin: 0;
 }
+
+@media only screen and (max-width: 600px) {
+  .main-container {
+    width: 90% !important;
+  }
+}
+
 /* 
 :where(.css-dev-only-do-not-override-pr0fja).ant-select:not(
         .ant-select-customize-input
@@ -22,125 +29,168 @@ body {
 /* :where(.css-dev-only-do-not-override-pr0fja).li:hover { */
 
 .ResultArea {
-    font-family: "Fragment Mono", monospace;
-    text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
+  font-family: "Fragment Mono", monospace;
+  text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
 }
 
 .InputArea {
-    font-family: "Fragment Mono", monospace;
-    text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
+  font-family: "Fragment Mono", monospace;
+  text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
 }
 
 .ErrorMessageArea {
-    font-family: "Fragment Mono", monospace;
-    text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
+  font-family: "Fragment Mono", monospace;
+  text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
 }
 
 .ErrorMessageArea:hover {
-    background-color: rgba(192, 192, 192, 0.9) !important;
+  background-color: rgba(192, 192, 192, 0.9) !important;
 }
 
 .prompt-input {
-    color: white;
-    text-shadow: 1px 1px 2px #3311a1, 0 0 1em #55ff33, 0 0 0.2em white;
+  color: white;
+  text-shadow: 1px 1px 2px #3311a1, 0 0 1em #55ff33, 0 0 0.2em white;
 }
 
 textarea::-webkit-scrollbar {
-    width: 1em;
+  width: 1em;
 }
 
 textarea::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 textarea::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    outline: 1px solid slategrey;
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
 }
 
 textarea::-webkit-scrollbar-corner {
-    /* background-color: darkgrey; */
-    outline: 1px solid slategrey;
-    background: rgba(0, 0, 0, 0.5);
+  /* background-color: darkgrey; */
+  outline: 1px solid slategrey;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 textarea::-webkit-resizer {
-    border: 2px solid rgba(85, 192, 108, 0.5);
-    display: block;
+  border: 2px solid rgba(85, 192, 108, 0.5);
+  display: block;
 }
 
 div.codearea span {
-    background: rgba(100, 100, 100, 0.5) !important;
-    background-color: rgba(100, 100, 100, 0.5) !important;
+  background: rgba(100, 100, 100, 0.5) !important;
+  background-color: rgba(100, 100, 100, 0.5) !important;
 }
 
 code {
-    line-height: 1.1 !important;
-    color: white;
-    font-family: "Fragment Mono", monospace !important;
-    text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
+  line-height: 1.1 !important;
+  color: white;
+  font-family: "Fragment Mono", monospace !important;
+  text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff;
 }
 .editor {
-    font-family: "Fragment Mono", monospace;
-    counter-reset: line;
-    color: rgba(232, 232, 232, 1);
-    font-size: 12px;
-    /* text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff; */
+  font-family: "Fragment Mono", monospace;
+  counter-reset: line;
+  color: rgba(232, 232, 232, 1);
+  font-size: 12px;
+  /* text-shadow: 1px 1px 2px #9e3f3f, 0 0 1em #4f9fff; */
 }
 
 .editor:hover {
-    background-color: rgba(48, 20, 110, 0.8);
-    border: 1px solid #ced4da;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    padding: 2px 2px;
+  background-color: rgba(48, 20, 110, 0.8);
+  border: 1px solid #ced4da;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 2px 2px;
 }
 
 .editor #codeArea {
-    /* color: white; */
-    border: 1px solid #ced4da;
-    padding-left: 48px !important;
+  /* color: white; */
+  border: 1px solid #ced4da;
+  padding-left: 48px !important;
 }
 
 .editor pre {
-    padding-left: 3rem !important;
+  padding-left: 3rem !important;
 }
 
 .editor .editorLineNumber {
-    /* font-family: "Fragment Mono", monospace !important; */
-    position: absolute;
-    left: 0px;
-    color: #aaa;
-    text-align: right;
-    width: 40px;
-    font-weight: 500;
+  /* font-family: "Fragment Mono", monospace !important; */
+  position: absolute;
+  left: 0px;
+  color: #aaa;
+  text-align: right;
+  width: 40px;
+  font-weight: 500;
+}
+
+.success-info {
+  font-family: "Chakra Petch", sans-serif !important;
+}
+
+.success-info:hover {
+  background-color: rgba(100, 100, 100, 0.5);
+}
+
+.debug-popover {
+  background-color: rgba(100, 100, 100, 1);
 }
 
 .ant-dropdown .ant-dropdown-menu {
-    background-color: none;
-    background: none;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+li.ant-dropdown-menu-item.ant-dropdown-menu-item-only-child:hover {
+  background-color: #5588aa !important;
 }
 .cornerButton:hover {
-    color: red;
+  color: red;
 }
 
 .ant-popover .ant-popover-inner {
-    width: 20rem;
-    font-family: "Chakra Petch", sans-serif !important;
-    background-color: rgba(192, 192, 192, 0.2);
+  width: 20rem;
+  font-family: "Chakra Petch", sans-serif !important;
+  background-color: rgba(192, 192, 192, 0.9);
+}
+
+div.ant-popover-inner#setting-popover {
+  background-color: rgba(192, 192, 192, 0.9);
+  border-radius: 0px;
 }
 
 .ant-btn #about {
-    z-index: 50;
-    padding: 0;
+  z-index: 50;
+  padding: 0;
+}
+
+.ant-btn.settingButton {
+  height: 40px;
+  margin: 0px !important;
+  /* font-size: 40px; */
+  padding: 4px 4px 4px 4px;
+  border-radius: 0px;
 }
 
 #corner-item {
-    color: #000;
-    font-size: small;
+  color: #000;
+  font-size: small;
 }
 
 #corner-item:hover {
-    color: #fff;
+  color: #fff;
+}
+
+.option-item {
+  font-family: "Chakra Petch", sans-serif !important;
+}
+
+.hyphenate {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  margin: 0px;
 }
