@@ -1,11 +1,9 @@
-export const fs = `
-
-varying vec2 vUv;
+export const fs = `varying vec2 vUv;
 uniform float u_time;
 uniform vec2 u_resolution;
 void main() {
-    vec2 uv = (vUv.xy - 0.5 * u_resolution.xy) / min(u_resolution.y, u_resolution.x);
-    vec2 c = vec2(0.5 * sin(u_time), 0.5 * cos(u_time));
+    vec2 uv = (vUv.xy - 0.8 * u_resolution.xy) / min(u_resolution.y, u_resolution.x);
+    vec2 c = vec2(0.3 * sin(u_time), 0.01 * cos(u_time));
     vec2 z = uv;
     float iter = 0.0;
     for (int i = 0; i < 100; i++) {
@@ -14,7 +12,7 @@ void main() {
         z = temp;
         iter++;
     }
-    float color = iter / 100.0;
+    float color = iter / 50.0;
     gl_FragColor = vec4(vec3(color), 1.0);
 }
 `;
