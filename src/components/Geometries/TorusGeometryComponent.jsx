@@ -23,7 +23,7 @@ const TorusKnotGeometryComponent = ({
             onClick={onClickAction}
         >
             <Suspense fallback={<h1>Waiting...</h1>}>
-                <torusKnotGeometry args={[1, 0.4, 100, 100]} />
+                <torusKnotGeometry args={[1.5, 0.3, 100, 100, 4]} />
 
                 <shaderMaterial
                     ref={rref}

@@ -7,11 +7,11 @@ import { RightSquareOutlined } from "@ant-design/icons";
 import { useAtom } from "jotai";
 
 const promptTipsItems = [
-  {
-    label: "Simple Noise",
-    key: "Simple Noise",
-    style: DropdownItemStyle,
-  },
+  // {
+  //   label: "Stochastic world",
+  //   key: "Stochastic world",
+  //   style: DropdownItemStyle,
+  // },
   {
     label: "A sine wave",
     key: "A sine wave",
@@ -25,6 +25,11 @@ const promptTipsItems = [
   {
     label: "Create a fractal",
     key: "Fractal",
+    style: DropdownItemStyle,
+  },
+  {
+    label: "A waterfall",
+    key: "A waterfall",
     style: DropdownItemStyle,
   },
   {

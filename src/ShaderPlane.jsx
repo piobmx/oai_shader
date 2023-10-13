@@ -79,8 +79,8 @@ export function ShaderPlane(props) {
   );
 
   const onClickAction = () => {
-    console.log(ref.current);
-    console.log(gl);
+    // console.log(ref.current);
+    // console.log(gl);
     const screenshot = gl.domElement.toDataURL("image/png", 1.0);
     setDownloadLink(screenshot);
   };

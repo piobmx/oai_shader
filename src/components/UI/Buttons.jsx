@@ -1,6 +1,6 @@
 import { Button, Popconfirm, Space, Upload } from "antd";
 import { CascaderComponentStyle, buttonStyles } from "../../styles";
-import { downloadAtom, loadingAtom } from "../../atoms/shaderAtoms";
+import { cleanPromptAtom, downloadAtom } from "../../atoms/shaderAtoms";
 
 import CascaderGeometrySelector from "./CascaderGeometrySelector";
 import React from "react";
@@ -8,6 +8,8 @@ import { useAtomValue } from "jotai";
 
 function ButtonComponent(props) {
   const downloadLink = useAtomValue(downloadAtom);
+  let prompt = useAtomValue(cleanPromptAtom);
+  const downloadFileName = `${prompt}.png`;
   return (
     <Space style={{ display: "flex" }}>
       <Button
@@ -19,17 +21,20 @@ function ButtonComponent(props) {
           // background: "rgba(200, 0, 0, 1)",
         }}
       >
-        ToggleUI
+        Toggle UI
       </Button>
-      <Button type="primary" style={buttonStyles}>
-        <a href={downloadLink} download="shader.png" target="_blank">
-          {downloadLink === "" ? "Capture" : "Download"}
-        </a>
+      <Button
+        type="primary"
+        href={downloadLink}
+        download={downloadFileName}
+        target={"_blank"}
+        style={buttonStyles}
+      >
+        {downloadLink === "" ? "Click canvas to capture" : "Download"}
       </Button>
       {/* <Button type="primary" style={buttonStyles} onClick={props.reseter(Math.random())}>
         Reset scene
       </Button> */}
-      {/* <CascaderGeometrySelector /> */}
     </Space>
   );
 }
