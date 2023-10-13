@@ -1,7 +1,8 @@
 import * as THREE from "three";
 
-import { Text3D } from "@react-three/drei";
-import { text3dAtom } from "../../App";
+import { Center, Text3D } from "@react-three/drei";
+
+import { text3dAtom } from "../../atoms/shaderAtoms";
 import { useAtomValue } from "jotai";
 
 const Text3DGeometryComponent = ({
@@ -16,11 +17,7 @@ const Text3DGeometryComponent = ({
 }) => {
   const textContent = useAtomValue(text3dAtom);
   return (
-    <mesh
-      // scale={[viewport.width, viewport.height, 1.0]}
-      position={position}
-      onClick={onClickAction}
-    >
+    <Center>
       <Text3D font={"/fonts.json"}>
         {textContent}
         <shaderMaterial
@@ -32,7 +29,7 @@ const Text3DGeometryComponent = ({
           side={THREE.DoubleSide}
         />
       </Text3D>
-    </mesh>
+    </Center>
   );
 };
 

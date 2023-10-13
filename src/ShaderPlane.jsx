@@ -2,21 +2,21 @@ import * as THREE from "three";
 
 import { GizmoHelper, PivotControls, useHelper } from "@react-three/drei";
 import { Suspense, useMemo, useRef, useState } from "react";
-import { extend, useFrame, useThree } from "@react-three/fiber";
 import {
+  downloadAtom,
+  errorAtom,
   fragAtom,
   geometryAtom,
-  shaderErrorMsgAtom,
-  shaderHasErrorAtom,
-} from "./App";
+  pivotAxesAtom,
+} from "./atoms/shaderAtoms";
+import { extend, useFrame, useThree } from "@react-three/fiber";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import BoxGeometryComponent from "./components/Geometries/BoxGeometryComponent";
 import PlaneGeometryComponent from "./components/Geometries/PlaneGeometryComponent";
 import SphereGeometryComponent from "./components/Geometries/SphereGeometryComponent";
 import Text3DGeometryComponent from "./components/Geometries/Text3DGeometryComponent";
 import TorusKnotGeometryComponent from "./components/Geometries/TorusGeometryComponent";
-import { downloadAtom } from "./App";
-import { useAtom } from "jotai";
 import { useEffect } from "react";
 
 const GeometryComponentMap = {
@@ -32,18 +32,14 @@ export function ShaderPlane(props) {
   const meshRef = useRef();
 
   const { gl, viewport, size, get, clock } = useThree();
-  const [fragCode, setFragCode] = useAtom(fragAtom);
-  const [shaderHasError, setShaderHasError] = useAtom(shaderHasErrorAtom);
-  const [shaderErrorMsg, setShaderErrorMsg] = useAtom(shaderErrorMsgAtom);
-
-  const [debugTriggered, setDebugTriggered] = useState(false);
-
-  const [geometry, setGeometry] = useAtom(geometryAtom);
-  const [downloadLink, setDownloadLink] = useAtom(downloadAtom);
+  const fragCode = useAtomValue(fragAtom);
+  const geometry = useAtomValue(geometryAtom);
+  const pivotAxes = useAtomValue(pivotAxesAtom);
+  const setShaderErr = useSetAtom(errorAtom);
+  const setDownloadLink = useSetAtom(downloadAtom);
 
   // console.log("scale:", viewport.width, viewport.height);
   gl.debug.onShaderError = (gl, program, glVertexShader, glFragmentShader) => {
-    setDebugTriggered(true);
     const infoLog = gl.getProgramInfoLog(program);
     const vertexShaderInfoLog = gl.getShaderInfoLog(glVertexShader);
     const fragmentShaderInfoLog = gl.getShaderInfoLog(glFragmentShader);
@@ -52,9 +48,6 @@ export function ShaderPlane(props) {
       vertex: vertexShaderInfoLog,
       frament: fragmentShaderInfoLog,
     };
-
-    // setShaderErrorMsg(fragmentShaderInfoLog);
-    // setShaderHasError(true);
   };
 
   useEffect(() => {
@@ -62,8 +55,7 @@ export function ShaderPlane(props) {
     ref.current.fragmentShader = fragCode;
     // setPseudoFrag("#define das 3.141592653" + fragCode)
     clock.start();
-    setDebugTriggered(false);
-    validateScript(gl, fragCode, setShaderHasError, setShaderErrorMsg);
+    validateScript(gl, fragCode, setShaderErr);
   }, [fragCode]);
 
   useFrame((state) => {
@@ -87,8 +79,8 @@ export function ShaderPlane(props) {
   );
 
   const onClickAction = () => {
-    // console.log(ref.current);
-    // console.log(gl);
+    console.log(ref.current);
+    console.log(gl);
     const screenshot = gl.domElement.toDataURL("image/png", 1.0);
     setDownloadLink(screenshot);
   };
@@ -107,22 +99,22 @@ export function ShaderPlane(props) {
   };
   const GeometryToRender = GeometryComponentMap[geometry];
 
-  const pc = false;
-  return pc ? (
-    <PivotControls>
+  return pivotAxes ? (
+    <PivotControls offset={[1, 1, 1]}>
       <GeometryToRender {...GeometryProps} />
+
+      <axesHelper
+        scale={2}
+        position={[0, 0, 0]}
+        onUpdate={(self) => self.setColors("#ff2080", "#20ff80", "#2080ff")}
+      />
     </PivotControls>
   ) : (
     <GeometryToRender {...GeometryProps} />
   );
 }
 
-const validateScript = (
-  gl,
-  fragScript,
-  setShaderHasError,
-  setShaderErrorMsg
-) => {
+const validateScript = (gl, fragScript, setShaderErr) => {
   let errorInfo = "";
   const renderer = gl.getContext();
   if (gl.info.programs.length > 0) {
@@ -141,8 +133,10 @@ const validateScript = (
       }
     } catch (err) {
     } finally {
-      setShaderHasError(errorInfo === "" ? false : true);
-      setShaderErrorMsg(errorInfo);
+      setShaderErr({
+        hasError: errorInfo === "" ? false : true,
+        errorMsg: errorInfo,
+      });
     }
   }
 };

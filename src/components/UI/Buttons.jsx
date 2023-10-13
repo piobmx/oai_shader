@@ -1,14 +1,13 @@
 import { Button, Popconfirm, Space, Upload } from "antd";
 import { CascaderComponentStyle, buttonStyles } from "../../styles";
-import { downloadAtom, loadingAtom } from "../../App";
+import { downloadAtom, loadingAtom } from "../../atoms/shaderAtoms";
 
 import CascaderGeometrySelector from "./CascaderGeometrySelector";
 import React from "react";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 
 function ButtonComponent(props) {
-  const [loading, setLoading] = useAtom(loadingAtom);
-  const [downloadLink, setDL] = useAtom(downloadAtom);
+  const downloadLink = useAtomValue(downloadAtom);
   return (
     <Space style={{ display: "flex" }}>
       <Button

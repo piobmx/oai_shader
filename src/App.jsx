@@ -10,7 +10,7 @@ import {
   useGLTF,
 } from "@react-three/drei";
 import { atom, useAtom, useAtomValue } from "jotai";
-import { defaultFrag, fs, vs } from "./utils/fragments";
+import { cameraAtom, fragAtom, vertAtom } from "./atoms/shaderAtoms";
 import { useEffect, useRef, useState } from "react";
 
 import { Canvas } from "@react-three/fiber";
@@ -19,26 +19,11 @@ import CornerComponent from "./components/UI/Corners";
 import SettingComponent from "./components/SettingComponent";
 import ShaderComponent from "./components/UI/ShaderComponent";
 import { ShaderPlane } from "./ShaderPlane";
-
-export const vertAtom = atom("");
-// export const fragAtom = atom(defaultFrag);
-export const fragAtom = atom(fs);
-export const promptAtom = atom("create a fractal");
-export const cleanPromptAtom = atom((get) =>
-  get(promptAtom).slice(0, 1000).toLowerCase()
-);
-export const text3dAtom = atom("Hello");
-
-export const loadingAtom = atom(false);
-export const shaderHasErrorAtom = atom(false);
-export const shaderErrorMsgAtom = atom("");
-export const geometryAtom = atom("PlaneGeometry");
-export const downloadAtom = atom("");
-export const cameraAtom = atom(false);
+import { vs } from "./utils/fragments";
 
 function App() {
   const ref = useRef();
-  const [vertex, setVert] = useState(vs);
+  const [vertex, setVertex] = useState(vs);
   const [fragment, setFragment] = useAtom(fragAtom);
   const bgColor = new Color(0x20201b);
   const cameraOn = useAtomValue(cameraAtom);
@@ -47,9 +32,7 @@ function App() {
     const handleLoad = () => {
       localStorage.clear();
     };
-
     window.addEventListener("load", handleLoad);
-
     return () => {
       window.removeEventListener("load", handleLoad);
     };
@@ -60,13 +43,13 @@ function App() {
       <div style={mainStyle}>
         <Canvas
           ref={ref}
-          // camera={{ position: [0.0, 0.0, 8.0] }}
+          camera={{ position: [0.0, 0.0, 5.0] }}
           gl={{ preserveDrawingBuffer: true }}
           style={{ width: "100%", zIndex: "0" }}
         >
           <color attach="background" args={[bgColor.r, bgColor.g, bgColor.b]} />
           <ambientLight intensity={1} />
-          <directionalLight color="red" position={[0, 0, 5]} />
+          <directionalLight color="red" position={[0, 0, 1]} />
           {/* <directionalLight position={[0, 0, 0.0]} intensity={2} /> */}
           {/* <TransformControls> */}
           <ShaderPlane position={[0, 0, 0]} vs={vertex} />
@@ -84,9 +67,9 @@ function App() {
             <GizmoHelper
               makeDefault
               alignment="bottom-right"
-            //   onUpdate={() => {
-            //     console.log(orbitref.current.minPolarAngle);
-            //   }}
+              //   onUpdate={() => {
+              //     console.log(orbitref.current.minPolarAngle);
+              //   }}
               margin={[100, 100]}
             >
               <GizmoViewport labelColor="white" axisHeadScale={1} />

@@ -1,14 +1,13 @@
 import { Dropdown, Menu } from "antd";
+import { useAtom, useSetAtom } from "jotai";
 
-import { CascaderComponentStyle } from "../../styles";
 import { DownOutlined } from "@ant-design/icons";
 import { DropdownItemStyle } from "../../styles";
 import React from "react";
-import { geometryAtom } from "../../App";
-import { useAtom } from "jotai";
+import { geometryAtom } from "../../atoms/shaderAtoms";
 
 const CascaderGeometrySelector = ({ onUserGeometryChange }) => {
-  const [geometry, setGeometry] = useAtom(geometryAtom);
+  const setGeometry = useSetAtom(geometryAtom);
 
   const handleClick = (geoKey) => {
     setGeometry(geoKey.key);

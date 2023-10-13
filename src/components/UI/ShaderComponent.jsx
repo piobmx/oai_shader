@@ -10,12 +10,11 @@ import {
 import React, { useState } from "react";
 import {
   cleanPromptAtom,
+  errorAtom,
   fragAtom,
   loadingAtom,
   promptAtom,
-  shaderErrorMsgAtom,
-  shaderHasErrorAtom,
-} from "../../App";
+} from "../../atoms/shaderAtoms";
 import {
   getCompletions,
   getStreamedCompletions,
@@ -35,11 +34,12 @@ function ShaderComponent() {
   const [fragCode, setFragCode] = useAtom(fragAtom);
   const [prompt, setPrompt] = useAtom(promptAtom);
   const [loading, setLoading] = useAtom(loadingAtom);
-  const [inputVisibility, setInputVisibility] = useState(true);
-  const [shaderHasError, setShaderHasError] = useAtom(shaderHasErrorAtom);
-  const [shaderErrorMsg, setShaderErrorMsg] = useAtom(shaderErrorMsgAtom);
-  const [APIError, setAPIError] = useState("");
+  const [shaderErr, setShaderErr] = useAtom(errorAtom);
+
   const cleanPrompt = useAtomValue(cleanPromptAtom);
+
+  const [APIError, setAPIError] = useState("");
+  const [inputVisibility, setInputVisibility] = useState(true);
   const [reset, setReset] = useState(0);
   const openAI = true;
 
@@ -151,24 +151,27 @@ function ShaderComponent() {
             validator={validateResult}
             reseter={setReset}
           />
-          <Editor
-            value={fragCode}
-            padding={10}
-            highlight={(code) =>
-              hightlightWithLineNumbers(code, ExtendedPrism.languages.glsl)
-            }
-            onValueChange={(code) => setFragCode(code)}
-            textareaId="codeArea"
-            className="editor"
-          />
-          {shaderHasError ? (
+          <div className="editor-wrapper">
+            <Editor
+              value={fragCode}
+              padding={10}
+              highlight={(code) =>
+                hightlightWithLineNumbers(code, ExtendedPrism.languages.glsl)
+              }
+              rows={10}
+              onValueChange={(code) => setFragCode(code)}
+              textareaId="codeArea"
+              className="editor"
+            />
+          </div>
+          {shaderErr.hasError ? (
             <TextArea
               className={"ErrorMessageArea"}
               bordered={false}
               value={
                 loading
                   ? "Generating and compiling fragment shader ..."
-                  : `${shaderErrorMsg}`
+                  : `${shaderErr.errorMsg}`
               }
               rows={5}
               placeholder="Errors will appear here"

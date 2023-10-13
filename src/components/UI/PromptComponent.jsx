@@ -1,14 +1,9 @@
 import { Button, Dropdown, Input, Popover, Space } from "antd";
-import {
-  DownOutlined,
-  QuestionCircleFilled,
-  QuestionOutlined,
-  RightSquareOutlined,
-} from "@ant-design/icons";
-import { loadingAtom, promptAtom } from "../../App";
+import { loadingAtom, promptAtom } from "../../atoms/shaderAtoms";
 
 import { DropdownItemStyle } from "../../styles";
 import React from "react";
+import { RightSquareOutlined } from "@ant-design/icons";
 import { useAtom } from "jotai";
 
 const promptTipsItems = [

@@ -1,5 +1,6 @@
-import { Suspense } from "react";
 import * as THREE from "three";
+
+import { Suspense } from "react";
 
 const TorusKnotGeometryComponent = ({
     uniforms,

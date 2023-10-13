@@ -1,6 +1,27 @@
 import OpenAI from "openai";
 import getPromptObject from "./PromptObjectGenerator";
 
+export async function authenticateOpenaiAPI() {
+  const apiKey =
+    localStorage.getItem("api-key") === null
+      ? process.env.OAI_KEY
+      : localStorage.getItem("api-key");
+  const model =
+    localStorage.getItem("model") === null
+      ? "gpt-3.5-turbo"
+      : localStorage.getItem("model");
+  const openai = new OpenAI({
+    apiKey: apiKey,
+    dangerouslyAllowBrowser: true,
+  });
+  try {
+    const availableModels = await openai.models.list();
+    return availableModels;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function getCompletionsFromOpenai(userPrompt, callback) {
   const apiKey =
     localStorage.getItem("api-key") === null
@@ -45,7 +66,6 @@ export async function getCompletionsFromOpenai(userPrompt, callback) {
     }
   }
 }
-
 export async function getInspirationsFromOpenai(inputCode, callback) {
   const promptObject = getPromptObject(inputCode);
   try {

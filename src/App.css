@@ -14,7 +14,7 @@ body {
 
 @media only screen and (max-width: 600px) {
   .main-container {
-    width: 90% !important;
+    width: 750% !important;
   }
 }
 
@@ -52,26 +52,26 @@ body {
   /* text-shadow: 1px 1px 2px #3311a1, 0 0 1em #55ff33, 0 0 0.2em white; */
 }
 
-textarea::-webkit-scrollbar {
+.editor-wrapper::-webkit-scrollbar {
   width: 1em;
 }
 
-textarea::-webkit-scrollbar-track {
+.editor-wrapper::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-textarea::-webkit-scrollbar-thumb {
+.editor-wrapper::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
 }
 
-textarea::-webkit-scrollbar-corner {
+.editor-wrapper::-webkit-scrollbar-corner {
   /* background-color: darkgrey; */
   outline: 1px solid slategrey;
   background: rgba(0, 0, 0, 0.5);
 }
 
-textarea::-webkit-resizer {
+.editor-wrapper::-webkit-resizer {
   border: 2px solid rgba(85, 192, 108, 0.5);
   display: block;
 }
@@ -108,6 +108,12 @@ code {
   /* color: white; */
   border: 1px solid #ced4da;
   padding-left: 48px !important;
+  resize: none;
+}
+
+.editor-wrapper {
+  max-height: 500px;
+  overflow-y:scroll;
 }
 
 .editor pre {
@@ -116,6 +122,7 @@ code {
 
 .editor .editorLineNumber {
   /* font-family: "Fragment Mono", monospace !important; */
+  background-color: rgba(120, 120, 120, 0.2);
   position: absolute;
   left: 0px;
   color: #aaa;
@@ -193,4 +200,30 @@ div.ant-popover-inner#setting-popover {
   -ms-hyphens: auto;
   hyphens: auto;
   margin: 0px;
+}
+
+.ant-input {
+  font-family: "Chakra Petch", sans-serif !important;
+}
+
+.ant-select {
+  border-radius: 0px !important;
+}
+.ant-select-selection-item {
+  font-family: "Chakra Petch", sans-serif !important;
+  border-radius: 0px !important;
+  /* background-color: rgba(40, 40, 240, 1); */
+}
+
+div.root-select {
+  /* background-color: rgba(40, 40, 240, 1); */
+  font-family: "Chakra Petch", sans-serif !important;
+  border-radius: 0px !important;
+  /* background-color: rgba(40, 40, 240, 1); */
+}
+
+.ant-select-selector {
+  font-family: "Chakra Petch", sans-serif !important;
+  border-radius: 0px !important;
+  background-color: red !importants;
 }
