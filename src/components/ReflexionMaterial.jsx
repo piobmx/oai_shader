@@ -10,7 +10,7 @@ const ReflexionMaterial = (props) => {
       rotation={[-Math.PI / 2, 0, 0]}
     >
       <planeGeometry args={[20, 20]} />
-      <MeshReflectorMaterial
+      <MeshReflectorMateria
         blur={[400, 200]}
         resolution={2048}
         mixBlur={1}

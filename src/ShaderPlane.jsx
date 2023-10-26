@@ -1,11 +1,5 @@
 import * as THREE from "three";
 
-import {
-  GizmoHelper,
-  MeshReflectorMaterial,
-  PivotControls,
-  PointMaterial,
-} from "@react-three/drei";
 import { Suspense, useMemo, useRef, useState } from "react";
 import {
   downloadAtom,
@@ -18,7 +12,7 @@ import { extend, useFrame, useThree } from "@react-three/fiber";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import BoxGeometryComponent from "./components/Geometries/BoxGeometryComponent";
-import { Fragment } from "react";
+import { PivotControls } from "@react-three/drei";
 import PlaneGeometryComponent from "./components/Geometries/PlaneGeometryComponent";
 import SphereGeometryComponent from "./components/Geometries/SphereGeometryComponent";
 import Text3DGeometryComponent from "./components/Geometries/Text3DGeometryComponent";

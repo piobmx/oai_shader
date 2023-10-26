@@ -12,7 +12,7 @@ const PlaneGeometryComponent = ({
   onClickAction,
 }) => {
   const isScale = true;
-  console.log("vp", viewport);
+  // console.log("vp", viewport);
 
   return (
     <mesh

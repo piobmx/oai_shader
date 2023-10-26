@@ -1,9 +1,9 @@
 import "../App.css";
 
-import { CameraControls, MeshReflectorMaterial } from "@react-three/drei";
 import { Leva, button, buttonGroup, folder, useControls } from "leva";
 import { useEffect, useRef, useState } from "react";
 
+import { CameraControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Color } from "three";
 import CornerComponent from "../components/UI/Corners";
