@@ -1,6 +1,11 @@
 import * as THREE from "three";
 
-import { GizmoHelper, PivotControls, useHelper } from "@react-three/drei";
+import {
+  GizmoHelper,
+  MeshReflectorMaterial,
+  PivotControls,
+  PointMaterial,
+} from "@react-three/drei";
 import { Suspense, useMemo, useRef, useState } from "react";
 import {
   downloadAtom,
@@ -13,6 +18,7 @@ import { extend, useFrame, useThree } from "@react-three/fiber";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import BoxGeometryComponent from "./components/Geometries/BoxGeometryComponent";
+import { Fragment } from "react";
 import PlaneGeometryComponent from "./components/Geometries/PlaneGeometryComponent";
 import SphereGeometryComponent from "./components/Geometries/SphereGeometryComponent";
 import Text3DGeometryComponent from "./components/Geometries/Text3DGeometryComponent";
@@ -30,6 +36,7 @@ const GeometryComponentMap = {
 export function ShaderPlane(props) {
   const ref = useRef();
   const meshRef = useRef();
+  const reflexionRef = useRef();
 
   const { gl, viewport, size, get, clock } = useThree();
   const fragCode = useAtomValue(fragAtom);
@@ -59,6 +66,9 @@ export function ShaderPlane(props) {
   }, [fragCode]);
 
   useFrame((state) => {
+    if (reflexionRef.current) {
+      // reflexionRef.current.rotation.x += 0.001
+    }
     if (ref.current) {
       ref.current.uniforms.u_time.value = clock.getElapsedTime();
     }
@@ -98,16 +108,11 @@ export function ShaderPlane(props) {
     onClickAction: onClickAction,
   };
   const GeometryToRender = GeometryComponentMap[geometry];
+  const reflextion = true;
 
   return pivotAxes ? (
     <PivotControls offset={[1, 1, 1]}>
       <GeometryToRender {...GeometryProps} />
-
-      <axesHelper
-        scale={2}
-        position={[0, 0, 0]}
-        onUpdate={(self) => self.setColors("#ff2080", "#20ff80", "#2080ff")}
-      />
     </PivotControls>
   ) : (
     <GeometryToRender {...GeometryProps} />

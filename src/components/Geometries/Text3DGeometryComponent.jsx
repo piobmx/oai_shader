@@ -18,7 +18,7 @@ const Text3DGeometryComponent = ({
   const textContent = useAtomValue(text3dAtom);
   return (
     <Center>
-      <Text3D font={"/fonts.json"}>
+      <Text3D font={"/fonts.json"} position={[0, 1, 0]}>
         {textContent}
         <shaderMaterial
           ref={rref}

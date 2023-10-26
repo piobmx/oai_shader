@@ -27,8 +27,10 @@ const SettingComponent = () => {
 const cornerStyle = {
   position: "absolute",
   zIndex: "40",
-  right: "0",
-  top: "0rem",
+  // right: "0",
+  // top: "0rem",
+  left: "0",
+  bottom: "0rem",
 };
 
 const buttonStyle = {

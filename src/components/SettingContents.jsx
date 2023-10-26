@@ -1,11 +1,12 @@
 import { Button, Checkbox, Divider, Input, Select, Space } from "antd";
 import {
   cameraAtom,
+  enableLevaAtom,
   geometryAtom,
   pivotAxesAtom,
   text3dAtom,
 } from "../atoms/shaderAtoms";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
 
 import CascaderGeometrySelector from "./UI/CascaderGeometrySelector";
@@ -15,8 +16,9 @@ import { authenticateOpenaiAPI } from "../utils/BetaOpenaiAPI";
 const SettingContent = () => {
   const [text, setText] = useAtom(text3dAtom);
   const [textInput, setTextInput] = useState(text);
-  const [cameraOn, setCameraOn] = useAtom(cameraAtom);
   const [pivotAxes, setPivotAxes] = useAtom(pivotAxesAtom);
+  const [cameraOn, setCameraOn] = useAtom(cameraAtom);
+  const setEnableLeva = useSetAtom(enableLevaAtom);
   const geometry = useAtomValue(geometryAtom);
   const [apiBoxContent, setApiBoxContent] = useState("");
   const [modelX, setModelX] = useState("gpt-3.5-turbo");
@@ -40,10 +42,10 @@ const SettingContent = () => {
       size="small"
       style={{ display: "block", color: "black" }}
     >
-      <Checkbox onChange={() => setCameraOn(!cameraOn)}>
+      <Checkbox checked={cameraOn} onChange={() => setCameraOn(!cameraOn)}>
         <div className="option-item">Show camera controleler</div>
       </Checkbox>
-      <Checkbox onChange={() => setPivotAxes(!pivotAxes)}>
+      <Checkbox checked={pivotAxes} onChange={() => setPivotAxes(!pivotAxes)}>
         <div className="option-item">Show pivot controller and axes</div>
       </Checkbox>
       <Divider style={{ backgroundColor: "#331", margin: "0px" }} />

@@ -1,7 +1,7 @@
-import { extend } from "@react-three/fiber";
-import { Suspense } from "react";
 import * as THREE from "three";
 
+import { Suspense } from "react";
+import { extend } from "@react-three/fiber";
 
 const SphereGeometryComponent = ({
     uniforms,

@@ -113,7 +113,7 @@ code {
 
 .editor-wrapper {
   max-height: 500px;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
 
 .editor pre {
@@ -228,8 +228,6 @@ div.root-select {
   background-color: red !importants;
 }
 
-
 .ant-checkbox .ant-checkbox-inner {
-  border-radius: 0px ;
+  border-radius: 0px;
 }
-

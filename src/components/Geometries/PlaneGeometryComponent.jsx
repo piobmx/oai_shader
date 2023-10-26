@@ -1,8 +1,5 @@
 import * as THREE from "three";
 
-import { PivotControls } from "@react-three/drei";
-import { Suspense } from "react";
-
 const PlaneGeometryComponent = ({
   uniforms,
   viewport,
@@ -14,26 +11,29 @@ const PlaneGeometryComponent = ({
   meshRef,
   onClickAction,
 }) => {
-  return (
-      <mesh
-        ref={meshRef}
-        scale={[viewport.width, viewport.height, 1.0]}
-        position={position}
-        onClick={onClickAction}
-      >
-        <Suspense fallback={<h1>Waiting...</h1>}>
-          <planeGeometry />
+  const isScale = true;
+  console.log("vp", viewport);
 
-          <shaderMaterial
-            ref={rref}
-            key={THREE.ShaderMaterial.key}
-            vertexShader={vs}
-            fragmentShader={fs}
-            uniforms={uniforms}
-            side={THREE.DoubleSide}
-          />
-        </Suspense>
-      </mesh>
+  return (
+    <mesh
+      ref={meshRef}
+      scale={isScale ? [viewport.width, viewport.height, 1.0] : [3, 3, 3]}
+      position={position}
+      onClick={onClickAction}
+    >
+      <planeGeometry />
+
+      {/* <meshStandardMaterial ref={rref} color={"orange"} /> */}
+
+      <shaderMaterial
+        ref={rref}
+        key={THREE.ShaderMaterial.key}
+        vertexShader={vs}
+        fragmentShader={fs}
+        uniforms={uniforms}
+        side={THREE.DoubleSide}
+      />
+    </mesh>
   );
 };
 

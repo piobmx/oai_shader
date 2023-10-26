@@ -28,6 +28,11 @@ const promptTipsItems = [
     style: DropdownItemStyle,
   },
   {
+    label: "Some dreamy effect",
+    key: "Some dreamy effect",
+    style: DropdownItemStyle,
+  },
+  {
     label: "A waterfall",
     key: "A waterfall",
     style: DropdownItemStyle,

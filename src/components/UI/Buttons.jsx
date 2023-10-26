@@ -30,7 +30,7 @@ function ButtonComponent(props) {
         target={"_blank"}
         style={buttonStyles}
       >
-        {downloadLink === "" ? "Click canvas to capture" : "Download"}
+        {downloadLink === "" ? "Click canvas to capture" : "Screenshot"}
       </Button>
       {/* <Button type="primary" style={buttonStyles} onClick={props.reseter(Math.random())}>
         Reset scene
