@@ -1,9 +1,4 @@
-// import * as THREE from "three";
-
 import { MeshReflectorMaterial } from "@react-three/drei";
-import { extend } from "@react-three/fiber";
-
-extend({ MeshReflectorMaterial });
 
 const ReflexionMaterial = (props) => {
   return (
