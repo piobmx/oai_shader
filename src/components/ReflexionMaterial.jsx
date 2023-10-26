@@ -1,6 +1,9 @@
 import * as THREE from "three";
 
 import { MeshReflectorMaterial } from "@react-three/drei";
+import { extend } from "@react-three/fiber";
+
+extend({ MeshReflectorMaterial });
 
 const ReflexionMaterial = (props) => {
   return (
@@ -10,7 +13,7 @@ const ReflexionMaterial = (props) => {
       rotation={[-Math.PI / 2, 0, 0]}
     >
       <planeGeometry args={[20, 20]} />
-      <MeshReflectorMateria
+      <MeshReflectorMaterial
         blur={[400, 200]}
         resolution={2048}
         mixBlur={1}
