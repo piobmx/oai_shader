@@ -12,21 +12,19 @@ const BoxGeometryComponent = ({
   rref,
   onClickAction,
 }) => {
-  const scaleToScreen = true;
-  const b = 0.8;
-  const heightScale = viewport.width / b;
+  const bSize = 4
   return (
     <mesh
-      scale={[
-        viewport.width * 0.6,
-        viewport.height * 0.6,
-        viewport.height * 0.6,
+      scale={[ 1, 1, 1
+        // viewport.width * 0.6,
+        // viewport.height * 0.6,
+        // viewport.height * 0.6,
       ]}
       position={position}
       onClick={onClickAction}
     >
       <Suspense fallback={<h1>Waiting...</h1>}>
-        <boxGeometry args={[b, b, b]} />
+        <boxGeometry args={[bSize, bSize, bSize]} />
 
         <shaderMaterial
           ref={rref}

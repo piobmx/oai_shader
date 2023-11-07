@@ -20,7 +20,7 @@ const SphereGeometryComponent = ({
             onClick={onClickAction}
         >
             <Suspense fallback={<h1>Waiting...</h1>}>
-                <sphereGeometry args={[2]} />
+                <sphereGeometry args={[3]} />
 
                 <shaderMaterial
                     ref={rref}

@@ -16,7 +16,7 @@ export const loadingAtom = atom(false);
 // export const shaderErrorMsgAtom = atom("");
 export const geometryAtom = atom("PlaneGeometry");
 export const downloadAtom = atom("");
-export const cameraAtom = atom(false);
+export const statsAtom = atom(false);
 export const pivotAxesAtom = atom(false);
 export const enableLevaAtom = atom(false);
 

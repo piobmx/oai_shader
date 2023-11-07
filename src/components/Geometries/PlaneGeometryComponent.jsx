@@ -2,7 +2,6 @@ import * as THREE from "three";
 
 const PlaneGeometryComponent = ({
   uniforms,
-  viewport,
   position,
   clock,
   vs,
@@ -10,14 +9,14 @@ const PlaneGeometryComponent = ({
   rref,
   meshRef,
   onClickAction,
+  scaledHeight,
+  scaledWidth,
 }) => {
   const isScale = true;
-  // console.log("vp", viewport);
-
   return (
     <mesh
       ref={meshRef}
-      scale={isScale ? [viewport.width, viewport.height, 1.0] : [3, 3, 3]}
+      scale={isScale ? [scaledWidth, scaledHeight, 1.0] : [1, 1, 1]}
       position={position}
       onClick={onClickAction}
     >

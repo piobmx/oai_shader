@@ -1,6 +1,8 @@
 import "../App.css";
 
 import { Leva, button, buttonGroup, folder, useControls } from "leva";
+import { fragAtom, statsAtom } from "../atoms/shaderAtoms";
+import { useAtom, useAtomValue } from "jotai";
 import { useEffect, useRef, useState } from "react";
 
 import { CameraControls } from "@react-three/drei";
@@ -13,8 +15,7 @@ import ReflexionMaterial from "./ReflexionMaterial";
 import SettingComponent from "../components/SettingComponent";
 import ShaderComponent from "../components/UI/ShaderComponent";
 import { ShaderPlane } from "../ShaderPlane";
-import { fragAtom } from "../atoms/shaderAtoms";
-import { useAtom } from "jotai";
+import { Stats } from "@react-three/drei";
 import { vs } from "../utils/fragments";
 
 let startXY = { x: 0, y: 0 };
@@ -34,6 +35,7 @@ function ShaderCanvas() {
   const bgColor = new Color(0x20201b);
   const orbitref = useRef();
   const enableLeva = true;
+  const enableStats = useAtomValue(statsAtom);
   useControls({
     directionalLight: folder({
       position: {
@@ -52,7 +54,6 @@ function ShaderCanvas() {
       color: {
         value: "#aaa",
         onChange: (c, _, t) => {
-          // console.log(t);
           const { r, g, b } = hexToRgb(c);
           if (dirLightRef.current !== undefined) {
             dirLightRef.current.color.r = r / 256;
@@ -66,7 +67,6 @@ function ShaderCanvas() {
         min: 0,
         max: 10,
         onChange: (a, b, bc) => {
-          // console.log(a, b, bc);
           if (dirLightRef.current !== undefined) {
             dirLightRef.current.intensity = a;
           }
@@ -118,13 +118,11 @@ function ShaderCanvas() {
           x: startTruckValues.x,
           y: startTruckValues.y,
         };
-        console.log("startXY", startXY);
       },
       onChange: (truckValues, s, t) => {},
 
       onEditEnd: (endTruckValues, s, t) => {
         endXY = { ...endXY, x: endTruckValues.x, y: endTruckValues.y };
-        console.log("endXT", endXY);
         const n = truckCalculation(startXY, endXY);
         const xx = n.x;
         const yy = n.y;
@@ -142,8 +140,7 @@ function ShaderCanvas() {
       window.removeEventListener("load", handleLoad);
     };
   }, []);
-
-  // console.log(folder);
+  const [dpr, setDpr] = useState(1.5);
 
   return (
     <>
@@ -159,7 +156,6 @@ function ShaderCanvas() {
         <Canvas ref={ref} shadows gl={{ preserveDrawingBuffer: true }}>
           <CameraControls makeDefault ref={cameraRef} enabled={enableLeva} />
           {/* <Ground /> */}
-
           <color attach="background" args={[bgColor.r, bgColor.g, bgColor.b]} />
           <ambientLight color={"#000"} intensity={1} />
           <directionalLight
@@ -167,9 +163,9 @@ function ShaderCanvas() {
             args={[rgbToHex(120, 120, 120), 1]}
             position={[0, 1, 1]}
           />
-          {/* <directionalLight position={[0, 0, 0.0]} intensity={2} /> */}
           <ShaderPlane position={[0, 0, 0]} vs={vertex} />
           <ReflexionMaterial rref={reflexRef} />
+          {enableStats ? <Stats /> : <></>}
         </Canvas>
         <ShaderComponent />
         <CornerComponent />

@@ -1,9 +1,9 @@
 import { Button, Checkbox, Divider, Input, Select, Space } from "antd";
 import {
-  cameraAtom,
   enableLevaAtom,
   geometryAtom,
   pivotAxesAtom,
+  statsAtom,
   text3dAtom,
 } from "../atoms/shaderAtoms";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
@@ -17,7 +17,7 @@ const SettingContent = () => {
   const [text, setText] = useAtom(text3dAtom);
   const [textInput, setTextInput] = useState(text);
   const [pivotAxes, setPivotAxes] = useAtom(pivotAxesAtom);
-  const [cameraOn, setCameraOn] = useAtom(cameraAtom);
+  const [statsOn, setStatsOn] = useAtom(statsAtom);
   const setEnableLeva = useSetAtom(enableLevaAtom);
   const geometry = useAtomValue(geometryAtom);
   const [apiBoxContent, setApiBoxContent] = useState("");
@@ -42,11 +42,11 @@ const SettingContent = () => {
       size="small"
       style={{ display: "block", color: "black" }}
     >
-      <Checkbox checked={cameraOn} onChange={() => setCameraOn(!cameraOn)}>
-        <div className="option-item">Show camera controleler</div>
+      <Checkbox checked={statsOn} onChange={() => setStatsOn(!statsOn)}>
+        <div className="option-item">Toggle Stats</div>
       </Checkbox>
       <Checkbox checked={pivotAxes} onChange={() => setPivotAxes(!pivotAxes)}>
-        <div className="option-item">Show pivot controller and axes</div>
+        <div className="option-item">Toggle pivot controller and axes</div>
       </Checkbox>
       <Divider style={{ backgroundColor: "#331", margin: "0px" }} />
       <Space split={":"}>

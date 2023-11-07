@@ -33,13 +33,13 @@ export function ShaderPlane(props) {
   const reflexionRef = useRef();
 
   const { gl, viewport, size, get, clock } = useThree();
+  const [prevViewport, setPrevViewport ] = useState(viewport)
   const fragCode = useAtomValue(fragAtom);
   const geometry = useAtomValue(geometryAtom);
   const pivotAxes = useAtomValue(pivotAxesAtom);
   const setShaderErr = useSetAtom(errorAtom);
   const setDownloadLink = useSetAtom(downloadAtom);
 
-  // console.log("scale:", viewport.width, viewport.height);
   gl.debug.onShaderError = (gl, program, glVertexShader, glFragmentShader) => {
     const infoLog = gl.getProgramInfoLog(program);
     const vertexShaderInfoLog = gl.getShaderInfoLog(glVertexShader);
@@ -52,9 +52,9 @@ export function ShaderPlane(props) {
   };
 
   useEffect(() => {
+    console.log("viewport:", viewport);
     ref.current.version = ref.current.version + 1;
     ref.current.fragmentShader = fragCode;
-    // setPseudoFrag("#define das 3.141592653" + fragCode)
     clock.start();
     validateScript(gl, fragCode, setShaderErr);
   }, [fragCode]);
@@ -90,6 +90,8 @@ export function ShaderPlane(props) {
   };
   //   useHelper(condition && meshRef, BoxHelper, "red"); // you can pass false instead of the object ref to hide the helper
 
+
+
   const GeometryProps = {
     uniforms: uniforms,
     position: props.position,
@@ -97,6 +99,8 @@ export function ShaderPlane(props) {
     vs: props.vs,
     fs: fragCode,
     viewport: viewport,
+    scaledWidth: viewport.width * (viewport.factor / prevViewport.factor),
+    scaledHeight: viewport.height * (viewport.factor / prevViewport.factor),
     rref: ref,
     meshRef: meshRef,
     onClickAction: onClickAction,
