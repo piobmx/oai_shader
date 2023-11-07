@@ -13,8 +13,8 @@ const promptTipsItems = [
   //   style: DropdownItemStyle,
   // },
   {
-    label: "A sine wave",
-    key: "A sine wave",
+    label: "A sinusoidal wave",
+    key: "A sinusoidal wave",
     style: DropdownItemStyle,
   },
   {
@@ -24,7 +24,7 @@ const promptTipsItems = [
   },
   {
     label: "Create a fractal",
-    key: "Fractal",
+    key: "Create a fractal",
     style: DropdownItemStyle,
   },
   {

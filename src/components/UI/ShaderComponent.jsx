@@ -199,13 +199,12 @@ function ShaderComponent() {
                     title="Reasons the generated code is not working:"
                     content={
                       <p>
-                        The language model does not always generate code that
-                        runs perfectly. Sometimes no exception is caught by the
-                        compiler, but the shader code is not working fine (you
-                        are not seeing any graphics on the screen). It could be
-                        that the GPT model generates code that involves features
-                        that are not supported within the scope of this web
-                        applications.
+                        The language model does not always generate runnable
+                        code. Sometimes no exception is caught by the compiler,
+                        but the shader code is not working fine (you are not
+                        seeing any graphics on the screen). It could be that the
+                        GPT model generates code that involves features that are
+                        not supported within the scope of this web applications.
                         <br></br>If you have experience with shaders, you can
                         try to fix things yourself.However, if you're unfamiliar
                         with this, it is recommended to seek assistance from the
