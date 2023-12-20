@@ -5,13 +5,13 @@ import {
   pivotAxesAtom,
   statsAtom,
   text3dAtom,
-} from "../atoms/shaderAtoms";
+} from "../../atoms/shaderAtoms";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
 
-import CascaderGeometrySelector from "./UI/CascaderGeometrySelector";
+import CascaderGeometrySelector from "./CascaderGeometrySelector";
 import React from "react";
-import { authenticateOpenaiAPI } from "../utils/BetaOpenaiAPI";
+import { authenticateOpenaiAPI } from "../../utils/BetaOpenaiAPI";
 
 const SettingContent = () => {
   const [text, setText] = useAtom(text3dAtom);

@@ -2,7 +2,7 @@ import { Button, Popover, Space } from "antd";
 
 import React from "react";
 import SettingContent from "./SettingContents";
-import { buttonStyles } from "../styles";
+import { buttonStyles } from "../../styles";
 
 const SettingComponent = () => {
   return (

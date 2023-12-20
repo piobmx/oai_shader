@@ -10,9 +10,9 @@ import { Canvas } from "@react-three/fiber";
 import { Color } from "three";
 import CornerComponent from "../components/UI/Corners";
 import { DEG2RAD } from "three/src/math/MathUtils";
-import Ground from "./Ground";
-import ReflexionMaterial from "./ReflexionMaterial";
-import SettingComponent from "../components/SettingComponent";
+import Ground from "./Geometries/Ground";
+import ReflexionMaterial from "./Geometries/ReflexionMaterial";
+import SettingComponent from "./UI/SettingComponent";
 import ShaderComponent from "../components/UI/ShaderComponent";
 import { ShaderPlane } from "./ShaderPlane";
 import { Stats } from "@react-three/drei";
@@ -188,6 +188,7 @@ function rgbToHex(r, g, b, a = 255) {
 
   return `#${redHex}${greenHex}${blueHex}`;
 }
+
 function hexToRgb(hex) {
   hex = hex.charAt(0) === "#" ? hex.slice(1) : hex;
   if (hex.length !== 3 && hex.length !== 6) {
@@ -206,8 +207,8 @@ function hexToRgb(hex) {
 
   return { r, g, b };
 }
+
 const mainStyle = {
-  //   marginTop: "1rem",
   display: "flex",
   position: "relative",
   width: "100%",

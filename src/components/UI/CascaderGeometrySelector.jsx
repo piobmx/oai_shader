@@ -6,40 +6,28 @@ import { DropdownItemStyle } from "../../styles";
 import React from "react";
 import { geometryAtom } from "../../atoms/shaderAtoms";
 
+const items = [
+  createDropdownItem("Plane", "PlaneGeometry"),
+  createDropdownItem("Box", "BoxGeometry"),
+  createDropdownItem("Sphere", "SphereGeometry"),
+  createDropdownItem("Torus Knot", "TorusKnotGeometry"),
+  createDropdownItem("Text 3D", "Text3DGeometry"),
+];
+
+function createDropdownItem(label, key) {
+  return {
+    label,
+    key,
+    style: DropdownItemStyle,
+  };
+}
+
 const CascaderGeometrySelector = ({ onUserGeometryChange }) => {
   const setGeometry = useSetAtom(geometryAtom);
 
   const handleClick = (geoKey) => {
     setGeometry(geoKey.key);
   };
-
-  const items = [
-    {
-      label: "Plane",
-      key: "PlaneGeometry",
-      style: DropdownItemStyle,
-    },
-    {
-      label: "Box",
-      key: "BoxGeometry",
-      style: DropdownItemStyle,
-    },
-    {
-      label: "Sphere",
-      key: "SphereGeometry",
-      style: DropdownItemStyle,
-    },
-    {
-      label: "Torus Knot",
-      key: "TorusKnotGeometry",
-      style: DropdownItemStyle,
-    },
-    {
-      label: "Text 3D",
-      key: "Text3DGeometry",
-      style: DropdownItemStyle,
-    },
-  ];
 
   return (
     <>
@@ -63,7 +51,6 @@ const CascaderGeometrySelector = ({ onUserGeometryChange }) => {
             paddingLeft: "10px",
             marginLeft: "10px",
             fontWeight: "500",
-            fontFamily: "'Chakra Petch', sans-serif",
             backgroundColor: "rgba(40, 40, 240, 0.9)",
           }}
         >
