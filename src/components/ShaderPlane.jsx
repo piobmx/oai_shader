@@ -7,16 +7,16 @@ import {
   fragAtom,
   geometryAtom,
   pivotAxesAtom,
-} from "./atoms/shaderAtoms";
+} from "../atoms/shaderAtoms";
 import { extend, useFrame, useThree } from "@react-three/fiber";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
-import BoxGeometryComponent from "./components/Geometries/BoxGeometryComponent";
+import BoxGeometryComponent from "./Geometries/BoxGeometryComponent";
 import { PivotControls } from "@react-three/drei";
-import PlaneGeometryComponent from "./components/Geometries/PlaneGeometryComponent";
-import SphereGeometryComponent from "./components/Geometries/SphereGeometryComponent";
-import Text3DGeometryComponent from "./components/Geometries/Text3DGeometryComponent";
-import TorusKnotGeometryComponent from "./components/Geometries/TorusGeometryComponent";
+import PlaneGeometryComponent from "./Geometries/PlaneGeometryComponent";
+import SphereGeometryComponent from "./Geometries/SphereGeometryComponent";
+import Text3DGeometryComponent from "./Geometries/Text3DGeometryComponent";
+import TorusKnotGeometryComponent from "./Geometries/TorusGeometryComponent";
 import { useEffect } from "react";
 
 const GeometryComponentMap = {

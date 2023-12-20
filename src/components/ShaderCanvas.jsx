@@ -14,7 +14,7 @@ import Ground from "./Ground";
 import ReflexionMaterial from "./ReflexionMaterial";
 import SettingComponent from "../components/SettingComponent";
 import ShaderComponent from "../components/UI/ShaderComponent";
-import { ShaderPlane } from "../ShaderPlane";
+import { ShaderPlane } from "./ShaderPlane";
 import { Stats } from "@react-three/drei";
 import { vs } from "../utils/fragments";
 
