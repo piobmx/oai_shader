@@ -8,7 +8,7 @@ export async function authenticateOpenaiAPI() {
 			: localStorage.getItem("api-key");
 	const model =
 		localStorage.getItem("model") === null
-			? "gpt-3.5-turbo"
+			? "gpt-4o-mini-realtime-preview"
 			: localStorage.getItem("model");
 	const openai = new OpenAI({
 		apiKey: apiKey,
