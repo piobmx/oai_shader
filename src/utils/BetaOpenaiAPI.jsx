@@ -8,7 +8,7 @@ export async function authenticateOpenaiAPI() {
 			: localStorage.getItem("api-key");
 	const model =
 		localStorage.getItem("model") === null
-			? "gpt-4o-mini-realtime-preview"
+			? "gpt-4o-mini"
 			: localStorage.getItem("model");
 	const openai = new OpenAI({
 		apiKey: apiKey,
@@ -30,7 +30,7 @@ export async function getCompletionsFromOpenai(userPrompt, callback) {
 
 	const model =
 		localStorage.getItem("model") === null
-			? "gpt-4o-mini-realtime-preview"
+			? "gpt-4o-mini"
 			: localStorage.getItem("model");
 	const openai = new OpenAI({
 		apiKey: apiKey,
